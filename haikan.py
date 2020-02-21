@@ -35,7 +35,7 @@ class MyDataSet(Dataset):
         label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
         return self.transform(image), int(label)
 
-train_set = MyDataSet('train.csv', 'AE_train_bin')
+train_set = MyDataSet('train.csv', '../imgae-data/AE_train_bin')
 train_loader = torch.utils.data.DataLoader(train_set, batch_size=32, shuffle=True)
 
 
