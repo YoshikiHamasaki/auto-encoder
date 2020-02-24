@@ -4,17 +4,16 @@ import numpy as np
 import os
 
 y = []
-path = 'AE_test_bad/'
+
+#csvを作成したいフォルダ入力
+path = '../image-data/AE_test_good_bin/'
 files = []
 for filename in os.listdir(path):
      if os.path.isfile(os.path.join(path, filename)): #ファイルのみ取得
          files.append(filename)
 
-with open('test_bad.csv', 'w',newline="") as f: 
+with open('test_good.csv', 'w',newline="") as f: 
    writer = csv.writer(f, lineterminator="\n")
    writer.writerows([["ImageName","ImageLabel"]])
    for data in files:
-       writer.writerows([[data, 1]]) 
-       
-
-print(files[0])
+       writer.writerows([[data, 0]]) 
