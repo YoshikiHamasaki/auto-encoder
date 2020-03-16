@@ -19,133 +19,131 @@ import time
 
 
 
-def learning():
+num_epochs = 20
+learning_rate = 0.001
+out_dir = "result"
 
-    num_epochs = 20
-    learning_rate = 0.001
-    out_dir = "result"
-    
-    
-    class MyDataSet(Dataset):
-        def __init__(self, csv_path, root_dir):
-            self.train_df = pd.read_csv(csv_path)
-            self.root_dir = root_dir
-            self.images = os.listdir(self.root_dir)
-            self.transform = transforms.Compose([transforms.ToTensor(),
-                                                transforms.Normalize((0.5,),(0.5,))])
-            
-        def __len__(self):
-            return len(self.images)
-    
-        def __getitem__(self, idx):
-            # 画像読み込みa
-            image_name = self.images[idx]
-            image = Image.open( os.path.join(self.root_dir, image_name) )
-            #image = image.convert('RGB') # PyTorch 0.4以降
-            # label (0 or 1)
-            label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
-            return self.transform(image), int(label)
-    
-    train_set = MyDataSet('train.csv', '../image-data/AE_train_bin')
-    train_loader = torch.utils.data.DataLoader(train_set, batch_size=32, shuffle=True)
-    
-    test_set = MyDataSet("test_bad.csv","../image-data/AE_test_bad_bin")
-    test_loader = torch.utils.data.DataLoader(test_set,batch_size=2,shuffle=False)
-    
-    
-    data_iter = iter(test_loader)
-    images, labels = data_iter.next()
-    
-    test_img = images[1]
-    
-    test_img_print = test_img.reshape((28,28))
-    
-    #img = np.squeeze(img)
-    ##print(img.shape)
-    #img = img.reshape((28,28))
-    #print(img)
-    #plt.imshow(img,cmap="gray", vmin =0,vmax =1)
-    #plt.show()                          
-    #
-    
-    class Autoencoder(nn.Module):
+
+class MyDataSet(Dataset):
+    def __init__(self, csv_path, root_dir):
+        self.train_df = pd.read_csv(csv_path)
+        self.root_dir = root_dir
+        self.images = os.listdir(self.root_dir)
+        self.transform = transforms.Compose([transforms.ToTensor(),
+                                            transforms.Normalize((0.5,),(0.5,))])
         
+    def __len__(self):
+        return len(self.images)
+
+    def __getitem__(self, idx):
+        # 画像読み込みa
+        image_name = self.images[idx]
+        image = Image.open( os.path.join(self.root_dir, image_name) )
+        #image = image.convert('RGB') # PyTorch 0.4以降
+        # label (0 or 1)
+        label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
+        return self.transform(image), int(label)
+
+train_set = MyDataSet('train.csv', '../image-data/AE_train_bin')
+train_loader = torch.utils.data.DataLoader(train_set, batch_size=32, shuffle=True)
+
+test_set = MyDataSet("test_bad.csv","../image-data/AE_test_bad_bin")
+test_loader = torch.utils.data.DataLoader(test_set,batch_size=2,shuffle=False)
+
+
+data_iter = iter(test_loader)
+images, labels = data_iter.next()
+
+test_img = images[1]
+
+test_img_print = test_img.reshape((28,28))
+
+#img = np.squeeze(img)
+##print(img.shape)
+#img = img.reshape((28,28))
+#print(img)
+#plt.imshow(img,cmap="gray", vmin =0,vmax =1)
+#plt.show()                          
+#
+
+class Autoencoder(nn.Module):
     
-        def __init__(self):
-            super(Autoencoder, self).__init__()
-            self.encoder = nn.Sequential(
-                nn.Linear(28 * 28, 128),
-                nn.ReLU(True),
-                nn.Linear(128, 64),
-                nn.ReLU(True),
-                nn.Linear(64, 12),
-                nn.ReLU(True),
-                nn.Linear(12, 2))
-            
-            self.decoder = nn.Sequential(
-                nn.Linear(2, 12),
-                nn.ReLU(True),
-                nn.Linear(12, 64),
-                nn.ReLU(True),
-                nn.Linear(64, 128),
-                nn.ReLU(True),
-                nn.Linear(128, 28 * 28),
-                nn.Tanh()
-            )
-    
-        def forward(self, x):
-            x = self.encoder(x)
-            x = self.decoder(x)
-            return x
-    
-    model = Autoencoder()
-    
-    
-    def to_img(x):
-        x = 0.5 * (x + 1)  # [-1,1] => [0, 1]
-        #x = x.clamp(0, 1)
-        #x = x.view(x.size(0), 1, 28, 28)
+
+    def __init__(self):
+        super(Autoencoder, self).__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(28 * 28, 128),
+            nn.ReLU(True),
+            nn.Linear(128, 64),
+            nn.ReLU(True),
+            nn.Linear(64, 12),
+            nn.ReLU(True),
+            nn.Linear(12, 2))
+        
+        self.decoder = nn.Sequential(
+            nn.Linear(2, 12),
+            nn.ReLU(True),
+            nn.Linear(12, 64),
+            nn.ReLU(True),
+            nn.Linear(64, 128),
+            nn.ReLU(True),
+            nn.Linear(128, 28 * 28),
+            nn.Tanh()
+        )
+
+    def forward(self, x):
+        x = self.encoder(x)
+        x = self.decoder(x)
         return x
-    
-    device =  'cpu'
-    
-    
-    criterion = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(),
-                                 lr=learning_rate,
-                                 weight_decay=1e-5)
-    
-    loss_list = []
-    
-    for epoch in range(num_epochs):
-        for data in train_loader:
-            img, _ = data
-            x = img.view(img.size(0), -1)
-            
-            x = Variable(x)
-            
-            xhat = model(x)
+
+model = Autoencoder()
+
+
+def to_img(x):
+    x = 0.5 * (x + 1)  # [-1,1] => [0, 1]
+    #x = x.clamp(0, 1)
+    #x = x.view(x.size(0), 1, 28, 28)
+    return x
+
+device =  'cpu'
+
+
+criterion = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(),
+                             lr=learning_rate,
+                             weight_decay=1e-5)
+
+loss_list = []
+
+for epoch in range(num_epochs):
+    for data in train_loader:
+        img, _ = data
+        x = img.view(img.size(0), -1)
         
-            # 出力画像（再構成画像）と入力画像の間でlossを計算
-            loss = criterion(xhat, x)
-            #print("loss:{}".format(loss))
-            
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            
-            # logging
-            loss_list.append(loss.data.item())
+        x = Variable(x)
         
-        print('epoch [{}/{}], loss: {:.4f}'.format(
-            epoch + 1,
-            num_epochs,
-            loss.data.item()))
+        xhat = model(x)
     
-    np.save('./{}/loss_list.npy'.format(out_dir), np.array(loss_list))
-    torch.save(model.state_dict(), './{}/autoencoder.pth'.format(out_dir))
+        # 出力画像（再構成画像）と入力画像の間でlossを計算
+        loss = criterion(xhat, x)
+        #print("loss:{}".format(loss))
+        
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        # logging
+        loss_list.append(loss.data.item())
     
-    
+    print('epoch [{}/{}], loss: {:.4f}'.format(
+        epoch + 1,
+        num_epochs,
+        loss.data.item()))
+
+np.save('./{}/loss_list.npy'.format(out_dir), np.array(loss_list))
+torch.save(model.state_dict(), './{}/autoencoder.pth'.format(out_dir))
+
+
 #loss_list = np.load('{}/loss_list.npy'.format(out_dir))
 #plt.plot(loss_list)
 #plt.xlabel('iteration')
