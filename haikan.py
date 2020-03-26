@@ -19,7 +19,7 @@ import time
 
 
 
-num_epochs = 20
+num_epochs = 5
 learning_rate = 0.001
 out_dir = "result"
 
@@ -44,7 +44,7 @@ class MyDataSet(Dataset):
         label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
         return self.transform(image), int(label)
 
-train_set = MyDataSet('train.csv', '../image-data/AE_train_bin')
+train_set = MyDataSet('data_tyukan.csv', '../image-data/data_tyukan_bin')
 train_loader = torch.utils.data.DataLoader(train_set, batch_size=32, shuffle=True)
 
 test_set = MyDataSet("test_bad.csv","../image-data/AE_test_bad_bin")
@@ -57,6 +57,8 @@ images, labels = data_iter.next()
 test_img = images[1]
 
 test_img_print = test_img.reshape((28,28))
+
+print(test_img_print)
 
 #img = np.squeeze(img)
 ##print(img.shape)
@@ -161,11 +163,18 @@ pred = pred.reshape((28,28))
 
 
 plt.subplot(2,1,1)
-plt.imshow(test_img_print, cmap = "gray", vmin =0,vmax=1)
+plt.xlim(0,28)
+plt.ylim(28,0)
+plt.xticks([])
+plt.yticks([])
+plt.imshow(test_img_print, vmin =0,vmax=1)
 
 plt.subplot(2,1,2)
+plt.xticks([])
+plt.yticks([])
 plt.imshow(pred, cmap = "gray", vmin = 0, vmax = 1)
 
+plt.savefig('pred.jpg')
 plt.show()
 #def train_net(n_epochs, train_loader, net, optimizer_cls = optim.Adam,
 #              loss_fn = nn.MSELoss(), device = "cpu"):
