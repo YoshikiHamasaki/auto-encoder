@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from torch.utils.data import Dataset
 import pandas as pd
-import os
 import torchvision.transforms as transforms
 import cv2
 from torch import nn, optim
