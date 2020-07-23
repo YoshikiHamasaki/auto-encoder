@@ -14,4 +14,4 @@ def make_csv(path, output_file, label):
        writer.writerows([["ImageName","ImageLabel"]])
        for data in files:
            writer.writerows([[data, label]]) 
-make_csv("D:/image/slack/base/", 'D:/image/slack/base/test.csv', 0)
+#make_csv("D:/image/slack/base/", 'D:/image/slack/base/test.csv', 0)
