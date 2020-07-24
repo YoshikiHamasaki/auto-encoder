@@ -38,15 +38,14 @@ class MyDataSet(Dataset):
         image = Image.open( os.path.join(self.root_dir, image_name) )
         #image = image.convert('RGB') # PyTorch 0.4以降
         # label (0 or 1)
-        label = self.train_df.query('ImageName=="'+image_name+'"')
-        ['ImageLabel'].iloc[0]
+        label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
         return self.transform(image), int(label)
 
-train_set = MyDataSet('train.csv', '../image-data/AE_train_bin/')
+train_set = MyDataSet('train.csv', '../image-data/AE_train_bin')
 train_loader = torch.utils.data.DataLoader(
         train_set, batch_size=32, shuffle=True)
 
-test_set = MyDataSet("test_bad.csv","../image-data/AE_test_bad_bin/")
+test_set = MyDataSet("test_bad.csv","../image-data/AE_test_bad_bin")
 test_loader = torch.utils.data.DataLoader(
         test_set,batch_size=2,shuffle=False)
 
