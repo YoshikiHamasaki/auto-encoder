@@ -5,6 +5,8 @@ from PIL import Image
 import torchvision.transforms as transforms
 import os
 from torch import nn,optim
+from torch.utils.data import Dataset
+import pandas as pd
 
 
 def make_data_set(train_csv,test_csv,train_img_path,test_img_path):

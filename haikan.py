@@ -14,51 +14,49 @@ import cv2
 from torch import nn, optim
 import glob
 from torch.autograd import Variable
-import time
-                      
-num_epochs = 20       
+
+
+num_epochs = 10       
 learning_rate = 0.001 #write train csv and test csv path 
 out_dir = "result"    #write train image and test image path
 
-def data_load(train_csv,test_csv,train_img_path,test_img_path):
+class MyDataSet(Dataset):
+    def __init__(self, csv_path, root_dir):
+        self.train_df = pd.read_csv(csv_path)
+        self.root_dir = root_dir
+        self.images = os.listdir(self.root_dir)
+        self.transform = transforms.Compose(
+                [transforms.ToTensor(),
+                    transforms.Normalize((0.5,),(0.5,))])
+        
+    def __len__(self):
+        return len(self.images)
 
-    class MyDataSet(Dataset):
-        def __init__(self, csv_path, root_dir):
-            self.train_df = pd.read_csv(csv_path)
-            self.root_dir = root_dir
-            self.images = os.listdir(self.root_dir)
-            self.transform = transforms.Compose(
-                    [transforms.ToTensor(),
-                        transforms.Normalize((0.5,),(0.5,))])
-            
-        def __len__(self):
-            return len(self.images)
-    
-        def __getitem__(self, idx):
-            # 画像読み込みa
-            image_name = self.images[idx]
-            image = Image.open( os.path.join(self.root_dir, image_name) )
-            #image = image.convert('RGB') # PyTorch 0.4以降
-            # label (0 or 1)
-            label = self.train_df.query('ImageName=="'+image_name+'"')
-            ['ImageLabel'].iloc[0]
-            return self.transform(image), int(label)
-    
-    train_set = MyDataSet('train_csv', 'train_img_path')
-    train_loader = torch.utils.data.DataLoader(
-            train_set, batch_size=32, shuffle=True)
-    
-    test_set = MyDataSet("test_csv","test_img_path")
-    test_loader = torch.utils.data.DataLoader(
-            test_set,batch_size=2,shuffle=False)
-    
-    
-    data_iter = iter(test_loader)
-    images, labels = data_iter.next()
-    
-    test_img = images[1]
-    
-    test_img_print = test_img.reshape((28,28))
+    def __getitem__(self, idx):
+        # 画像読み込みa
+        image_name = self.images[idx]
+        image = Image.open( os.path.join(self.root_dir, image_name) )
+        #image = image.convert('RGB') # PyTorch 0.4以降
+        # label (0 or 1)
+        label = self.train_df.query('ImageName=="'+image_name+'"')
+        ['ImageLabel'].iloc[0]
+        return self.transform(image), int(label)
+
+train_set = MyDataSet('train.csv', '../image-data/AE_train_bin/')
+train_loader = torch.utils.data.DataLoader(
+        train_set, batch_size=32, shuffle=True)
+
+test_set = MyDataSet("test_bad.csv","../image-data/AE_test_bad_bin/")
+test_loader = torch.utils.data.DataLoader(
+        test_set,batch_size=2,shuffle=False)
+
+
+data_iter = iter(test_loader)
+images, labels = data_iter.next()
+
+test_img = images[1]
+
+test_img_print = test_img.reshape((28,28))
 
 #img = np.squeeze(img)
 ##print(img.shape)
@@ -76,7 +74,7 @@ class Autoencoder(nn.Module):
         self.encoder = nn.Sequential(
             nn.Linear(28 * 28, 128),
             nn.ReLU(True),
-            nn.Linetr(128, 64),
+            nn.Linear(128, 64),
             nn.ReLU(True),
             nn.Linear(64, 12),
             nn.ReLU(True),
