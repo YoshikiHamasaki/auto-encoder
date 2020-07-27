@@ -50,3 +50,5 @@ def make_data_set(train_csv,test_csv,train_img_path,test_img_path):
     test_img_print = test_img.reshape((28,28))
 
     return train_loader, test_loader
+
+#make_data_set("../../train.csv","../../test_bad.csv","../../../
