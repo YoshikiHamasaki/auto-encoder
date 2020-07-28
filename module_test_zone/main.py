@@ -1,5 +1,6 @@
-from my_module import makr_data_set as mds
+from my_module import make_data_set as mds
 from my_module import standard_AE as s_AE
+from my_module import calculate as cal
 import os
 from PIL import Image
 import sys
@@ -15,7 +16,8 @@ num_epochs = 20
 learning_rate = 0.001 #write train csv and test csv path 
 out_dir = "result"    #write train image and test image path
 
-mds.make_data_set()
+train_loader, test_loader = mds.make_data_set("../train.csv","../test_bad.csv","../../image-data/AE_train_bin","../../image-data/AE_test_bad_bin")
+
 
 model = s_AE.Autoencoder()
 
@@ -28,38 +30,10 @@ def to_img(x):
 device =  'cpu'
 
 
-criterion = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(),
-                             lr=learning_rate,
-                             weight_decay=1e-5)
+optimizer = torch.optim.Adam(model.parameters(),lr=learning_rate,weight_decay=1e-5)
 
 
-loss_list = []
-
-for epoch in range(num_epochs):
-    for data in train_loader:
-        img, _ = data
-        x = img.view(img.size(0), -1)
-        
-        x = Variable(x)
-        
-        xhat = model(x)
-    
-        # 出力画像（再構成画像）と入力画像の間でlossを計算
-        loss = criterion(xhat, x)
-        #print("loss:{}".format(loss))
-        
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        
-        # logging
-        loss_list.append(loss.data.item())
-    
-    print('epoch [{}/{}], loss: {:.4f}'.format(
-        epoch + 1,
-        num_epochs,
-        loss.data.item()))
+loss_list, model = cal.calculate(num_epochs,train_loader,model,optimizer)
 
 np.save('./{}/loss_list.npy'.format(out_dir), np.array(loss_list))
 torch.save(model.state_dict(), './{}/autoencoder.pth'.format(out_dir))
