@@ -38,7 +38,7 @@ def make_data_set(train_csv,test_csv,train_img_path,test_img_path):
     
     test_set = MyDataSet(test_csv,test_img_path)
     test_loader = torch.utils.data.DataLoader(
-            test_set,batch_size=2,shuffle=False)
+            test_set,batch_size= len(test_set) ,shuffle=False)
     
     return train_loader, test_loader
 

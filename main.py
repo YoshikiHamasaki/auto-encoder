@@ -48,21 +48,23 @@ torch.save(model.state_dict(), './{}/autoencoder.pth'.format(out_dir))
 data_iter = iter(test_loader)
 images, labels = data_iter.next()
 test_img = images[1]
-test_img_print = test_img.reshape((28,28))
+in_img = test_img.reshape((28,28))
 
 
-test_img = test_img.view(test_img.size(0),-1)
-test_img= Variable(test_img)
-pred = model(test_img)
+
+out_img = test_img.view(test_img.size(0),-1)
+out_img= Variable(out_img)
+pred = model(out_img)
 pred = pred.detach().numpy()
 pred = to_img(pred)
 print(pred)
+print(in_img)
 pred = pred.reshape((28,28))
 
 
 
 plt.subplot(2,1,1)
-plt.imshow(test_img_print, cmap = "gray", vmin =0,vmax=1)
+plt.imshow(in_img, cmap = "gray", vmin =0,vmax=1)
 
 plt.subplot(2,1,2)
 plt.imshow(pred, cmap = "gray", vmin = 0, vmax = 1)
