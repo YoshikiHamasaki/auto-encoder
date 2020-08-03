@@ -7,12 +7,19 @@ import math
 import numpy
 import glob
 from natsort import natsorted
-
+import shutil
+import datetime
+import os
 
 path = '../../image-data/original'
 image_path = natsorted(glob.glob(path + '/*.jpg'))
-out_path = "../../image-data/trimming"
-
+date_now = datetime.datetime.now()
+date_month = date_now.month
+date_day = date_now.day
+date_hour = date_now.hour
+date_min = date_now.minute
+out_path = f"../../image-data/trimming/{date_month}_{date_day}_{date_hour}_{date_min}"
+os.mkdir(out_path)
 
 def get_image_point(path):
     pygame.init()
@@ -72,11 +79,13 @@ def image_trimming(path, number,out_path):
     img_my = my * h_ratio
     dx = img_mx - img_x
     dy = img_my - img_y
+    count = 0
     for l in range(int(dx/28)):
         for m in range(int(dy/28)):
             img2 = img[int(img_y + m*28):int(img_y + (m+1)*28), int(img_x + l*28):int(img_x + (l+1)*28)]
+            count += 1
     #img2 = img[int(img_y):int(img_my), int(img_x):int(img_mx)]
-            cv2.imwrite(f'{out_path}/output_image_{number}_{l}_{m}.jpg', img2)
+            cv2.imwrite(f'{out_path}/tri_{number}_{count}.jpg', img2)
 
 for i,f in enumerate(image_path):
     im = cv2.imread(image_path[i],1)
@@ -88,4 +97,5 @@ for i,f in enumerate(image_path):
     else:
         (w, h) = (600, 600)
     x, y, mx, my = get_image_point(image_path[i])
-    image_trimming(image_path[i],i,out_path)
+    a,b = os.path.splitext(os.path.basename(image_path[i]))
+    image_trimming(image_path[i],a,out_path)
