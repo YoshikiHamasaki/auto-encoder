@@ -26,13 +26,15 @@ def make_data_set(train_csv,test_csv,train_img_path,test_img_path):
         def __getitem__(self, idx):
             # 画像読み込みa
             image_name = self.images[idx]
-            image = Image.open( os.path.join(self.root_dir, image_name) )
+            image = Image.open( os.path.join(self.root_dir, image_name))
             #image = image.convert('RGB') # PyTorch 0.4以降
             # label (0 or 1)
             label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
             return self.transform(image), int(label)
     
+
     train_set = MyDataSet(train_csv, train_img_path)
+    print(train_set[0])
     train_loader = torch.utils.data.DataLoader(
             train_set, batch_size=32, shuffle=True)
     

@@ -17,7 +17,7 @@ num_epochs = 10
 learning_rate = 0.001 #write train csv and test csv path 
 out_dir = "result"    #write train image and test image path
 
-train_loader, test_loader = mds.make_data_set("train.csv","test_bad.csv","../image-data/AE_train_bin","../image-data/AE_test_bad_bin")
+train_loader, test_loader = mds.make_data_set("csv/train.csv","csv/test_bad.csv","../image-data/AE_train_bin","../image-data/AE_test_bad_bin")
 
 
 model = s_AE.Autoencoder()
