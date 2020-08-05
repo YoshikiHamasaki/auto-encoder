@@ -1,11 +1,11 @@
-from torch import nn, optim
+from torch import nn
 
 #オートエンコーダの定義
-class standard_Autoencoder(nn.Module):
+class bin_Autoencoder(nn.Module):
     
 
     def __init__(self):
-        super(Autoencoder, self).__init__()
+        super().__init__()
         self.encoder = nn.Sequential(
             nn.Linear(28 * 28, 128),
             nn.ReLU(True),
@@ -33,22 +33,22 @@ class standard_Autoencoder(nn.Module):
 
 class color_Autoencoder(nn.Module):
     
-    def __init__(self):
-        super(Autoencoder, self).__init__()
+    def __init__(self,input_size):
+        super().__init__()
         self.encoder = nn.Sequential(
-            nn.Linear(255, 255//4),
+            nn.Linear(input_size, input_size//4),
             nn.ReLU(True),
-            nn.Linear(255, 255//14),
+            nn.Linear(input_size, input_size//14),
             nn.ReLU(True),
-            nn.Linear(255, 255//28),
+            nn.Linear(input_size, input_size//28),
             )
 
         self.decoder = nn.Sequential(
-            nn.Linear(255//28, 255//14),
+            nn.Linear(input_size//28, input_size//14),
             nn.ReLU(True),
-            nn.Linear(255//14, 255//4),
+            nn.Linear(input_size//14, input_size//4),
             nn.ReLU(True),
-            nn.Linear(255//4, 255),
+            nn.Linear(input_size//4, input_size),
             nn.ReLU(True),
             nn.Tanh()
         )
