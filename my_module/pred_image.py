@@ -1,21 +1,22 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from my_module import reconstruction as re
+from my_module import reconstruction_error as re
+from torch.autograd import Variable
 
-def show_image(test_loader,test_img_index,model):
+def pred_bin_image(test_loader,test_img_index,model):
 
     data_iter = iter(test_loader)
     images, labels = data_iter.next()
     test_img = images[test_img_index]
     in_img = test_img.reshape((28,28))
     in_img = in_img.detach().numpy()
-    in_img = to_img(in_img)
+    in_img = in_img/2+ 0.5
     
     out_img = test_img.view(test_img.size(0),-1)
     out_img= Variable(out_img)
     pred = model(out_img)
     pred = pred.detach().numpy()
-    pred = to_img(pred)
+    pred = pred/2 + 0.5
     pred = pred.reshape((28,28))
     
     #print(pred)
