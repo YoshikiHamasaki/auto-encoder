@@ -24,7 +24,7 @@ def calculate(num_epochs,train_loader,model,optimizer,model_pass):
          
              # 出力画像（再構成画像）と入力画像の間でlossを計算
              loss = criterion(xhat, x)
-             print("loss:{}".format(loss))
+             #print("loss:{}".format(loss))
              
              optimizer.zero_grad()
              loss.backward()

@@ -3,7 +3,6 @@ from torch import nn
 #オートエンコーダの定義
 class bin_Autoencoder(nn.Module):
     
-
     def __init__(self):
         super().__init__()
         self.encoder = nn.Sequential(
@@ -36,20 +35,30 @@ class color_Autoencoder(nn.Module):
     def __init__(self,input_size):
         super().__init__()
         self.encoder = nn.Sequential(
-            nn.Linear(input_size, input_size//4),
+
+            nn.Linear(input_size, input_size//2),
             nn.ReLU(True),
-            nn.Linear(input_size, input_size//14),
+            nn.Linear(input_size//2, input_size//4),
             nn.ReLU(True),
-            nn.Linear(input_size, input_size//28),
-            )
+            nn.Linear(input_size//4, input_size//8),
+            nn.ReLU(True),
+            nn.Linear(input_size//8, input_size//16),
+            nn.ReLU(True),
+            nn.Linear(input_size//16, input_size//28),
+
+        )
 
         self.decoder = nn.Sequential(
-            nn.Linear(input_size//28, input_size//14),
+
+            nn.Linear(input_size//28, input_size//16),
             nn.ReLU(True),
-            nn.Linear(input_size//14, input_size//4),
+            nn.Linear(input_size//16, input_size//8),
             nn.ReLU(True),
-            nn.Linear(input_size//4, input_size),
+            nn.Linear(input_size//8, input_size//4),
             nn.ReLU(True),
+            nn.Linear(input_size//4, input_size//2),
+            nn.ReLU(True),
+            nn.Linear(input_size//2, input_size),
             nn.Tanh()
         )
 

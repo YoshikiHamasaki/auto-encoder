@@ -17,6 +17,6 @@ def imshow(img):
     plt.imshow(np.transpose(npimg,(1,2,0)))
     plt.show()
 
-iterator = iter(test_loader)
+iterator = iter(train_loader)
 img, _ = next(iterator)
 imshow(img)
