@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from my_module import reconstruction_error as re
+from my_module import reconstruction_error as recon
 from torch.autograd import Variable
+from my_module import own_imshow as own_imshow
+
 
 def pred_bin_image(test_loader,test_img_index,model):
 
@@ -22,7 +24,7 @@ def pred_bin_image(test_loader,test_img_index,model):
     #print(pred)
     #print(in_img)
     
-    r_error = re.reconstruction_error(in_img,pred)
+    r_error = recon.reconstruction_error(in_img,pred)
     print(r_error)
     
     plt.subplot(2,1,1)
@@ -32,3 +34,25 @@ def pred_bin_image(test_loader,test_img_index,model):
     plt.imshow(pred, cmap = "gray", vmin = 0, vmax = 1)
     
     plt.show()
+
+
+def pred_color_image(test_loader,test_img_index,model,input_size):
+
+    
+    iterator = iter(test_loader)
+    ori_img, _ = next(iterator)
+    input_img = ori_img[test_img_index]
+    recon_in = own_imshow.own_imshow(input_img)
+    #print(input_img.shape)
+    
+    result_img = input_img.view(-1,input_size)
+    result_img = Variable(result_img)
+    #print(result_img.shape)
+    result_img = model(result_img)
+    
+    result_img = result_img.reshape(-1,3,28,28)
+
+    recon_out = own_imshow.own_imshow(result_img)
+
+    r_error = recon.color_reconstruction_error(recon_in,recon_out)
+    print(r_error)

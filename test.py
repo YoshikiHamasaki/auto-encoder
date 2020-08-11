@@ -19,4 +19,4 @@ def imshow(img):
 
 iterator = iter(train_loader)
 img, _ = next(iterator)
-imshow(img)
+imshow(img[2])
