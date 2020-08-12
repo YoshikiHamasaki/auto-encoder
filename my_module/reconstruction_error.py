@@ -17,5 +17,9 @@ def color_reconstruction_error(input_img,output_img):
             save.append(e)
 
     E = sum(save)/float(len(save))
+    if E < 0.4:
+        print("normal pipe image")
+    else:
+        print("abnormal pipe image")
     return E
     

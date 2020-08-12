@@ -36,12 +36,17 @@ def pred_bin_image(test_loader,test_img_index,model):
     plt.show()
 
 
-def pred_color_image(test_loader,test_img_index,model,input_size):
+def pred_color_image(test_loader,test_img_index,model,input_size): 
 
-    
     iterator = iter(test_loader)
     ori_img, _ = next(iterator)
-    input_img = ori_img[test_img_index]
+
+    if test_img_index == "ALL":
+        input_img = ori_img
+
+    else:
+        input_img = ori_img[test_img_index]
+
     recon_in = own_imshow.own_imshow(input_img)
     #print(input_img.shape)
     
@@ -54,5 +59,6 @@ def pred_color_image(test_loader,test_img_index,model,input_size):
 
     recon_out = own_imshow.own_imshow(result_img)
 
-    r_error = recon.color_reconstruction_error(recon_in,recon_out)
-    print(r_error)
+    if not test_img_index == "ALL":
+        r_error = recon.color_reconstruction_error(recon_in,recon_out)
+        print(r_error)

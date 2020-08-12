@@ -11,15 +11,23 @@ import shutil
 import datetime
 import os
 
+
+
+####### setting parameter ############
 path = '../../image-data/original'
 image_path = natsorted(glob.glob(path + '/*.jpg'))
+out_path = f"../../image-data/trimming/{date_month}_{date_day}_{date_hour}_{date_min}"
+os.mkdir(out_path)
+######################################
+
+
 date_now = datetime.datetime.now()
 date_month = date_now.month
 date_day = date_now.day
 date_hour = date_now.hour
 date_min = date_now.minute
-out_path = f"../../image-data/trimming/{date_month}_{date_day}_{date_hour}_{date_min}"
-os.mkdir(out_path)
+
+
 
 def get_image_point(path):
     pygame.init()
