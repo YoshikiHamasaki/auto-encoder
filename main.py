@@ -1,4 +1,6 @@
 from my_module import start_detection as detect
+import glob
+import os
 
 COLOR = 0b1
 BINARY = 0b10
@@ -15,18 +17,19 @@ train_csv_path = "csv/8_12_train.csv"
 test_csv_path = "csv/test_bad.csv" 
 train_image_path = "../image-data/8_12_train" 
 test_image_path = "../image-data/test_bad" 
-test_img_index = 2
+test_img_index = 3
 #############################################
         
 
-train_folder = 
+train_name = os.path.basename(train_image_path)
+
 if image_type & COLOR:
     detect.for_color_detect(num_epochs,optimizer_type,learning_rate,input_size,
-            train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index)
+            train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name)
     
 elif image_type & BINARY:
     detect.for_bin_detect(num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
-            train_csv_path,test_csv_path,train_image_path,test_image_path)
+            train_csv_path,test_csv_path,train_image_path,test_image_path,train_name)
 
 else:
     print("select image_type")
