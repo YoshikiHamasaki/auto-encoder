@@ -1,0 +1,13 @@
+from my_module import autoencoder as AE
+
+def select_AE_type(AE_type,input_size):
+    if AE_type == "COLOR":
+        model = AE.color_autoencoder(input_size)
+
+    elif AE_type == "BIN":
+        model = AE.bin_autoencoder(input_size)
+    
+    else:
+        print("select AE_type error")
+    return model
+

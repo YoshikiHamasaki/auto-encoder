@@ -1,7 +1,7 @@
 from torch import nn
 
 #オートエンコーダの定義
-class bin_Autoencoder(nn.Module):
+class bin_autoencoder(nn.Module):
     
     def __init__(self):
         super().__init__()
@@ -30,7 +30,7 @@ class bin_Autoencoder(nn.Module):
         x = self.decoder(x)
         return x
 
-class color_Autoencoder(nn.Module):
+class color_autoencoder(nn.Module):
     
     def __init__(self,input_size):
         super().__init__()
