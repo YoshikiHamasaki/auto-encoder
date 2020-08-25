@@ -18,7 +18,7 @@ train_csv_path = "csv/8_12_train.csv"
 test_csv_path = "csv/test_good.csv" 
 train_image_path = "../image-data/8_12_train" 
 test_image_path = "../image-data/test_good" 
-test_img_index = 2
+test_img_index = "ALL"
 #############################################
         
 
