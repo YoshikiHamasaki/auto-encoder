@@ -9,7 +9,7 @@ image_type = 0
 ######### setting parameter #################
 image_type |= COLOR
 AE_type = "COLOR"
-num_epochs = 150
+num_epochs = 350
 optimizer_type = "SGD"
 learning_rate = 0.05
 weight_decay = 1e-5
