@@ -43,6 +43,7 @@ def for_bin_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,
     model = select_AE.select_AE_type(AE_type,input_size)
     
     optimizer = select_optim.select_optimizer_type(optimizer_type,model,learning_rate,weight_decay)
+
     loss_list, model = cal.calculate(num_epochs,train_loader,model,optimizer,
             f"result/train_folder={train_name} image_type={save_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl") 
     np.save(f"./result/loss_list.npy", np.array(loss_list)) 
@@ -53,3 +54,20 @@ def for_bin_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,
     #plt.ylabel('loss')
     #plt.grid()
     #plt.show()
+
+def for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name):
+
+    device =  'cpu'
+    save_type = "lab"
+    
+    train_loader, test_loader = mds.bin_make_data_set(
+       train_csv_path,test_csv_path,train_image_path,test_image_path) 
+
+    model = select_AE.select_AE_type(AE_type,input_size)
+    
+    optimizer = select_optim.select_optimizer_type(optimizer_type,model,learning_rate,weight_decay)
+
+    loss_list, model = cal.calculate(num_epochs,train_loader,model,optimizer,
+            f"result/train_folder={train_name} image_type={save_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl") 
+    np.save(f"./result/loss_list.npy", np.array(loss_list)) 
+    pred.pred_bin_image(test_loader,test_img_index,model) 
