@@ -7,8 +7,8 @@ import torch
 import torchvision
 import matplotlib.pyplot as plt
 
-test_path = "C:/Users/admin.H115/git/image-data/test_shadow/171.jpg" 
-
+test_path = "C:/Users/admin.H115/git/image-data/test_shadow/023.jpg" 
+test_path2 ="C:/Users/admin.H115/git/image-data/test_shadow/194.jpg"
 
 
 
@@ -34,30 +34,36 @@ b = cv2.imread(test_path)
 hsv1 = cv2.cvtColor(b,cv2.COLOR_BGR2HSV_FULL)
 b = cv2.cvtColor(b,cv2.COLOR_BGR2RGB)
 
-plt.figure(figsize=(9,7))
-plt.subplot(2,1,1)
-plt.imshow(b)
-plt.subplot(2,1,2)
-plt.imshow(hsv1)
-plt.show()
 
 #print(hsv2[:,:,2])
 
-#c = cv2.imread("C:/Users/admin.H115/git/image-data/8_12_train/166.jpg")
-#lab = cv2.cvtColor(c,cv2.COLOR_BGR2LAB)
+c = cv2.imread(test_path)
+lab = cv2.cvtColor(c,cv2.COLOR_BGR2LAB)
 #print(lab[:,:,0])
 #
 #d = cv2.imread("C:/Users/admin.H115/git/image-data/test_shadow/003.jpg")
 #lab2 = cv2.cvtColor(d,cv2.COLOR_BGR2LAB)
 #print(lab2[:,:,2])
 
-#gamma = 0.7
-#lookup_table = np.empty((1,256), np.uint8)
-#for i in range(256):
-#    lookup_table[0,i] = np.clip(pow(i / 255.0, gamma) * 255.0, 0, 255)
-# 
-## Look up tableを使って画像の輝度値を変更
-#imga = cv2.LUT(b, lookup_table)
+gamma = 0.7
+lookup_table = np.empty((1,256), np.uint8)
+for i in range(256):
+    lookup_table[0,i] = np.clip(pow(i / 255.0, gamma) * 255.0, 0, 255)
+ 
+# Look up tableを使って画像の輝度値を変更
+imgc = cv2.LUT(lab, lookup_table)
+
+plt.figure(figsize=(9,7))
+plt.subplot(1,3,1)
+plt.imshow(b)
+plt.subplot(1,3,2)
+plt.imshow(hsv1)
+plt.subplot(1,3,3)
+plt.imshow(imgc)
+plt.show()
+
+
+
 #cv2.namedWindow('imagea', cv2.WINDOW_AUTOSIZE)
 #cv2.imshow('imagea', b)
 #cv2.imshow('gammma', imga)
