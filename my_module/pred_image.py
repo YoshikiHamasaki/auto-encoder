@@ -62,3 +62,40 @@ def pred_color_image(test_loader,test_img_index,model,input_size):
     if not test_img_index == "ALL":
         r_error = recon.color_reconstruction_error(recon_in,recon_out)
         print(r_error)
+
+
+def pred_lab_image(test_loader,test_img_index,model,input_size): 
+
+    iterator = iter(test_loader)
+    ori_img, _ = next(iterator)
+
+    if test_img_index == "ALL":
+        input_img = ori_img
+
+    else:
+        input_img = ori_img[test_img_index]
+
+
+    save_input_img = input_img.detach().numpy()
+    save_input_img = np.transpose(save_input_img,(1,2,0))
+
+    print(save_input_img.shape)
+
+    result_img = input_img.view(-1,input_size)
+    result_img = Variable(result_img)
+    #print(result_img.shape)
+    result_img = model(result_img)
+    
+
+    result_img = (result_img/2 +0.5)*255
+    result_np_img = result_img.detach().numpy()
+
+    print(result_np_img.shape)
+    result_np_img = result_np_img.reshape(1,28,28)
+    result_np_img_reshape = np.transpose(result_np_img,(1,2,0)) 
+
+    print(result_np_img_reshape)
+
+    if not test_img_index == "ALL":
+        r_error = recon.bin_reconstruction_error(save_input_img,result_np_img_reshape)
+        print(r_error)

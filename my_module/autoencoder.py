@@ -66,3 +66,41 @@ class color_autoencoder(nn.Module):
         x = self.encoder(x)
         x = self.decoder(x)
         return x
+
+class lab_autoencoder(nn.Module):
+    
+    def __init__(self,input_size):
+        super().__init__()
+        self.encoder = nn.Sequential(
+
+            nn.Linear(input_size, input_size//2),
+            nn.ReLU(True),
+            nn.Linear(input_size//2, input_size//4),
+            nn.ReLU(True),
+            nn.Linear(input_size//4, input_size//8),
+            nn.ReLU(True),
+            nn.Linear(input_size//8, input_size//16),
+            nn.ReLU(True),
+            nn.Linear(input_size//16, input_size//28),
+
+        )
+
+        self.decoder = nn.Sequential(
+
+            nn.Linear(input_size//28, input_size//16),
+            nn.ReLU(True),
+            nn.Linear(input_size//16, input_size//8),
+            nn.ReLU(True),
+            nn.Linear(input_size//8, input_size//4),
+            nn.ReLU(True),
+            nn.Linear(input_size//4, input_size//2),
+            nn.ReLU(True),
+            nn.Linear(input_size//2, input_size),
+            nn.Tanh()
+        )
+
+    def forward(self, x):
+        x = self.encoder(x)
+        x = self.decoder(x)
+        return x
+

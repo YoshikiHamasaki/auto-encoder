@@ -5,8 +5,10 @@ def select_AE_type(AE_type,input_size):
         model = AE.color_autoencoder(input_size)
 
     elif AE_type == "BIN":
-        model = AE.bin_autoencoder(input_size)
+        model = AE.bin_autoencoder()
     
+    elif AE_type == "LAB":
+        model = AE.lab_autoencoder(input_size)
     else:
         print("select AE_type error")
     return model

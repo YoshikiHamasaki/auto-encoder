@@ -102,7 +102,6 @@ def lab_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
             image = cv2.imread( os.path.join(self.root_dir, image_name))
             image = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
             image_lab = image[:,:,0]
-            print(image_lab.ndim)
             #image = image.convert('RGB') # PyTorch 0.4以降
             # label (0 or 1)
             label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
