@@ -77,9 +77,8 @@ def pred_lab_image(test_loader,test_img_index,model,input_size):
 
 
     save_input_img = input_img.detach().numpy()
+    save_input_img = (save_input_img/2 +0.5)*255
     save_input_img = np.transpose(save_input_img,(1,2,0))
-
-    print(save_input_img.shape)
 
     result_img = input_img.view(-1,input_size)
     result_img = Variable(result_img)
@@ -90,11 +89,10 @@ def pred_lab_image(test_loader,test_img_index,model,input_size):
     result_img = (result_img/2 +0.5)*255
     result_np_img = result_img.detach().numpy()
 
-    print(result_np_img.shape)
     result_np_img = result_np_img.reshape(1,28,28)
     result_np_img_reshape = np.transpose(result_np_img,(1,2,0)) 
 
-    print(result_np_img_reshape)
+    #print(result_np_img_reshape)
 
     if not test_img_index == "ALL":
         r_error = recon.bin_reconstruction_error(save_input_img,result_np_img_reshape)

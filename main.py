@@ -10,16 +10,16 @@ image_type = 0
 ######### setting parameter #################
 image_type |= BRIGHTNESS
 AE_type = "LAB"
-num_epochs = 30
+num_epochs = 100
 optimizer_type = "SGD"
 learning_rate = 0.05
 weight_decay = 1e-5
 input_size = 28*28
-train_csv_path = "csv/train_shadow.csv" 
+train_csv_path = "csv/train_shadow_bright_about60.csv" 
 test_csv_path = "csv/test_shadow_bad.csv" 
-train_image_path = "../image-data/train_shadow" 
+train_image_path = "../image-data/train_shadow_bright_about60" 
 test_image_path = "../image-data/test_shadow_bad" 
-test_img_index = 3
+test_img_index = 2
 #############################################
         
 
@@ -36,7 +36,6 @@ def main():
                 train_csv_path,test_csv_path,train_image_path,test_image_path,train_name)
     
     elif image_type & BRIGHTNESS:
-        print(11111)
         detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name)
     else:

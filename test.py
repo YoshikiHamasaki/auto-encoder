@@ -10,11 +10,11 @@ import os
 import csv
 import pandas as pd
 
-test_path = "C:/Users/admin.H115/git/image-data/train_shadow/" 
-test_path2 ="C:/Users/admin.H115/git/image-data/test_shadow/194.jpg"
+test_path = "C:/Users/admin.H115/git/image-data/test_shadow_bad/" 
+test_path2 ="C:/Users/admin.h115/git/image-data/test_shadow/194.jpg"
 
 
-train_loader1, test_loader1 = dataset.lab_make_data_set("csv/train_shadow.csv","csv/test_shadow_bad.csv","../image-data/train_shadow","../image-data/test_shadow_bad")
+#train_loader1, test_loader1 = dataset.lab_make_data_set("csv/train_shadow.csv","csv/test_shadow_bad.csv","../image-data/train_shadow","../image-data/test_shadow_bad")
 
 
 train_loader, test_loader = dataset.color_make_data_set("csv/train.csv","csv/test_bad.csv","../image-data/train","../image-data/test_bad")
@@ -41,8 +41,8 @@ for i in range(len(img_name)):
     df = pd.DataFrame(image_lab)
     df["num"] = img_name[i]
     df = df.set_index("num")
-    df.to_csv("csv/pandas.csv", mode ="a",header = None)
-print(df)
+    df.to_csv("csv/lab data/test2.csv", mode ="a",header = None)
+#print(df)
 #iterator = iter(train_loader1)
 #img, _ = next(iterator)
 #img = (img/2 +0.5)*255
