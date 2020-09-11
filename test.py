@@ -10,9 +10,9 @@ import os
 import csv
 import pandas as pd
 
-test_path = "C:/Users/admin.H115/git/image-data/test_shadow_bad/" 
-test_path2 ="C:/Users/admin.h115/git/image-data/test_shadow/194.jpg"
-
+test_path = "C:/Users/admin.H115/git/image-data/9_11_train" 
+#test_path2 ="C:/Users/admin.h115/git/image-data/test_shadow/194.jpg"
+csv_name = "csv/lab data/test3.csv"
 
 #train_loader1, test_loader1 = dataset.lab_make_data_set("csv/train_shadow.csv","csv/test_shadow_bad.csv","../image-data/train_shadow","../image-data/test_shadow_bad")
 
@@ -41,15 +41,7 @@ for i in range(len(img_name)):
     df = pd.DataFrame(image_lab)
     df["num"] = img_name[i]
     df = df.set_index("num")
-    df.to_csv("csv/lab data/test2.csv", mode ="a",header = None)
-#print(df)
-#iterator = iter(train_loader1)
-#img, _ = next(iterator)
-#img = (img/2 +0.5)*255
-#print(img.shape)
-#print(img[9])
-#plt.imshow(npimg[2])
-#plt.show()
+    df.to_csv(csv_name, mode ="a",header = None)
 
 #a = cv2.imread("C:/Users/admin.H115/git/image-data/8_12_train/166.jpg")
 #image = cv2.cvtColor(a,cv2.COLOR_BGR2HSV_FULL)
