@@ -10,14 +10,8 @@ import os
 import csv
 import pandas as pd
 
-test_path = "C:/Users/admin.H115/git/image-data/9_11_train" 
-#test_path2 ="C:/Users/admin.h115/git/image-data/test_shadow/194.jpg"
-csv_name = "csv/lab data/test3.csv"
-
-#train_loader1, test_loader1 = dataset.lab_make_data_set("csv/train_shadow.csv","csv/test_shadow_bad.csv","../image-data/train_shadow","../image-data/test_shadow_bad")
-
-
-train_loader, test_loader = dataset.color_make_data_set("csv/train.csv","csv/test_bad.csv","../image-data/train","../image-data/test_bad")
+test_path = "C:/Users/admin.H115/git/image-data/train_shadow_bright_about100" 
+csv_name = "csv/lab data/train_shadow_bright_about100.csv"
 
 def imshow(img):
     img = torchvision.utils.make_grid(img)
