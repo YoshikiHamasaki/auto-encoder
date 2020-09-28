@@ -5,8 +5,8 @@ import numpy as np
 import scipy.stats as stats
 import math
 
-test_path = "C:/Users/admin.H115/git/image-data/test_shadow_bad" 
-csv_name = "csv/analysis/test_shadow_param.csv"
+test_path = "C:/Users/admin.H115/git/image-data/test_shadow_good" 
+csv_name = "csv/analysis/test_shadow_good_param.csv"
 
 img_name = os.listdir(test_path) 
 
