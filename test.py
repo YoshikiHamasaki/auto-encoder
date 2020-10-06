@@ -12,8 +12,6 @@ import csv
 import pandas as pd
 
 
-test_path = "C:/Users/admin.H115/git/image-data/train_shadow_bright_about100" 
-csv_name = "csv/lab data/train_shadow_bright_about100.csv"
 
 def imshow(img):
     img = torchvision.utils.make_grid(img)
@@ -22,21 +20,21 @@ def imshow(img):
     plt.imshow(np.transpose(npimg,(1,2,0)))
     plt.show()
 
-img_name = os.listdir(test_path) 
+#img_name = os.listdir(test_path) 
 
-for i in range(len(img_name)):
+#for i in range(len(img_name)):
+#
+#    image = cv2.imread(os.path.join(test_path, img_name[i]))
+#    image = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
+#    image_lab = image[:,:,0]
+#    #image_lab = image_lab.flatten()
+##    with open("csv/train_lab_data.csv", "a", newline = "") as f:
+##        writer = csv.writer(f, lineterminator = "\n")
+##        writer.writerows([[img_name[i],image_lab]])
+#
+#    df = pd.DataFrame(image_lab)
+#    df["num"] = img_name[i]
+#    df = df.set_index("num")
+##    df.to_csv(csv_name, mode ="a",header = None)
 
-    image = cv2.imread(os.path.join(test_path, img_name[i]))
-    image = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
-    image_lab = image[:,:,0]
-    #image_lab = image_lab.flatten()
-#    with open("csv/train_lab_data.csv", "a", newline = "") as f:
-#        writer = csv.writer(f, lineterminator = "\n")
-#        writer.writerows([[img_name[i],image_lab]])
-
-    df = pd.DataFrame(image_lab)
-    df["num"] = img_name[i]
-    df = df.set_index("num")
-#    df.to_csv(csv_name, mode ="a",header = None)
-
-classify.classify("../image-data/test_shadow_bad")
+classify.classify("../image-data/test_shadow_bad" ,"csv/analysis/test_bad_param.csv")
