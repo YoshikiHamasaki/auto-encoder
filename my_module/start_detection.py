@@ -71,3 +71,5 @@ def for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight
             f"result/train_folder={train_name} image_type={save_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl") 
     np.save(f"./result/loss_list.npy", np.array(loss_list)) 
     pred.pred_lab_image(test_loader,test_img_index,model,input_size) 
+
+def for_mix_detect(
