@@ -14,6 +14,7 @@ folder_name4 = "over135"
 
 
 
+
 list_folder = []
 def classify(test_path,csv_path):
 
@@ -22,6 +23,10 @@ def classify(test_path,csv_path):
     mycheck = os.path.isdir(check_path)
     
     folder_list = [folder_name1,folder_name2,folder_name3,folder_name4]
+
+    test_file_name = os.path.basename(test_path)
+    print(test_file_name)
+    
 
     if not mycheck:
 
@@ -59,4 +64,4 @@ def classify(test_path,csv_path):
             image_rename.rename(os.path.join(check_path, folder_name4 ))
 
     for i,j in enumerate(folder_list):
-        make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join(check_path,"csv",folder_list[i] + "_" + "param.csv"),0)
+        make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name  + "_" +  folder_list[i] + "_param.csv"),0)
