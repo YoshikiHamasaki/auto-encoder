@@ -37,4 +37,4 @@ def imshow(img):
 #    df = df.set_index("num")
 ##    df.to_csv(csv_name, mode ="a",header = None)
 
-classify.classify("../image-data/test_shadow_bad" ,"csv/analysis/test_bad_param.csv")
+classify.classify("../image-data/test_mix" ,"csv/analysis/test_mix_param.csv")

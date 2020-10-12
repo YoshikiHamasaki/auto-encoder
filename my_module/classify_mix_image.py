@@ -25,7 +25,6 @@ def classify(test_path,csv_path):
     folder_list = [folder_name1,folder_name2,folder_name3,folder_name4]
 
     test_file_name = os.path.basename(test_path)
-    print(test_file_name)
     
 
     if not mycheck:
@@ -37,31 +36,36 @@ def classify(test_path,csv_path):
 
         os.mkdir(os.path.join(check_path,"csv"))
 
-    df = pd.read_csv(csv_path)
-    image_name = df["image_name"]
-    folder = df["class_ave_folder"]
+        df = pd.read_csv(csv_path)
 
-    for x,y in enumerate(folder):
 
-        if y == folder_name1:
-            list_folder.append(y) 
-            shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name1 ,str(image_name[x])))
-            image_rename.rename(os.path.join(check_path, folder_name1))
+        image_name = df["image_name"]
+        folder = df["class_ave_folder"]
 
-        elif y == folder_name2:
-            list_folder.append(y) 
-            shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name2 ,str(image_name[x])))
-            image_rename.rename(os.path.join(check_path, folder_name2))
+        for x,y in enumerate(folder):
 
-        elif y == folder_name3:
-            list_folder.append(y) 
-            shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name3 ,str(image_name[x])))
-            image_rename.rename(os.path.join(check_path, folder_name3))
+            if y == folder_name1:
+                list_folder.append(y) 
+                shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name1 ,str(image_name[x])))
+                image_rename.rename(os.path.join(check_path, folder_name1))
 
-        elif y == folder_name4:
-            list_folder.append(y) 
-            shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name4 ,str(image_name[x])))
-            image_rename.rename(os.path.join(check_path, folder_name4 ))
+            elif y == folder_name2:
+                list_folder.append(y) 
+                shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name2 ,str(image_name[x])))
+                image_rename.rename(os.path.join(check_path, folder_name2))
 
-    for i,j in enumerate(folder_list):
-        make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name  + "_" +  folder_list[i] + "_param.csv"),0)
+            elif y == folder_name3:
+                list_folder.append(y) 
+                shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name3 ,str(image_name[x])))
+                image_rename.rename(os.path.join(check_path, folder_name3))
+
+            elif y == folder_name4:
+                list_folder.append(y) 
+                shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name4 ,str(image_name[x])))
+                image_rename.rename(os.path.join(check_path, folder_name4 ))
+        
+        if not os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name):
+            os.mkdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name))
+
+        for i,j in enumerate(folder_list):
+        make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name,folder_list[i] + "_data.csv"),0)

@@ -5,8 +5,9 @@ import os
 COLOR = 0b1
 BINARY = 0b10
 BRIGHTNESS = 0b100
-MIX = 0b1000
+ON = 0b1000
 image_type = 0
+MIX = 0
 
 ######### setting parameter #################
 image_type |= BRIGHTNESS
@@ -24,7 +25,7 @@ test_img_index = 2
 #############################################
         
 ##### for mix param #####
-image_type |= MIX
+MIX |= ON
 train
 folder_name1_epoch = 50
 folder_name2_epoch = 50
@@ -50,13 +51,14 @@ def main():
         detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name)
 
-    elif image_type & MIX:
-        classify.classify("../image-data/test_shadow_bad" ,"csv/analysis/test_bad_param.csv")
-        detect.for_brightness_detect
-
-    A
     else:
         print("select image_type")
+
+
+    if MIX & ON:
+        classify.classify("../image-data/test_mix" ,"csv/analysis/test_mix_param.csv")
+    
+
 
 if __name__ == "__main__":
     main()
