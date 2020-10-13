@@ -68,4 +68,4 @@ def classify(test_path,csv_path):
             os.mkdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name))
 
         for i,j in enumerate(folder_list):
-        make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name,folder_list[i] + "_data.csv"),0)
+            make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data", test_file_name ,folder_list[i] + "_data.csv"),0)

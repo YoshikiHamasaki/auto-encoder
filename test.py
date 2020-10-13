@@ -38,3 +38,15 @@ def imshow(img):
 ##    df.to_csv(csv_name, mode ="a",header = None)
 
 classify.classify("../image-data/test_mix" ,"csv/analysis/test_mix_param.csv")
+mix_test_image = natsorted(glob.glob(os.path.join("../image-data/test_mix","classify/*")))
+
+class A:
+    def __init__(self):
+        self.num = 0
+
+    def test(self,txit):
+        self.text = natsorted(glob.glob(os.path.join("../image-data/",txit,"classify/*")))
+        print(self.text[1])
+
+aiu = A()
+aiu.test("test_mix")
