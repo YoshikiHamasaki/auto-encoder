@@ -45,8 +45,11 @@ class A:
         self.num = 0
 
     def test(self,txit):
-        self.text = natsorted(glob.glob(os.path.join("../image-data/",txit,"classify/*")))
-        print(self.text[1])
+        self.txit = natsorted(glob.glob(os.path.join("../image-data/",txit,"classify/*")))
+        return(self.txit)
 
 aiu = A()
-aiu.test("test_mix")
+print(aiu.test("test_mix"))
+print(aiu.test)
+mix_folder_name = "test_mix"
+print(mix_test_csv)

@@ -11,7 +11,7 @@ import cv2
 #dataset作成関数　入力には訓練データとテストデータのcsvとそれぞれのパス入力
 def bin_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
 
-    class my_data_set(Dataset):
+    class My_data_set(Dataset):
         def __init__(self, csv_path, root_dir):
             self.train_df = pd.read_csv(csv_path)
             self.root_dir = root_dir
@@ -33,13 +33,13 @@ def bin_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
             return self.transform(image), int(label)
     
 
-    train_set = my_data_set(train_csv, train_img_path)
+    train_set = My_data_set(train_csv, train_img_path)
 
 
     train_loader = torch.utils.data.DataLoader(
             train_set, batch_size=10, shuffle=True)
     
-    test_set = my_data_set(test_csv,test_img_path)
+    test_set = My_data_set(test_csv,test_img_path)
     test_loader = torch.utils.data.DataLoader(
             test_set,batch_size= len(test_set) ,shuffle=False)
     
@@ -48,7 +48,7 @@ def bin_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
 
 def color_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
 
-    class my_data_set(Dataset):
+    class My_data_set(Dataset):
         def __init__(self, csv_path, root_dir):
             self.train_df = pd.read_csv(csv_path)
             self.root_dir = root_dir
@@ -70,13 +70,13 @@ def color_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
             return self.transform(image), int(label)
     
 
-    train_set = my_data_set(train_csv, train_img_path)
+    train_set = My_data_set(train_csv, train_img_path)
 
 
     train_loader = torch.utils.data.DataLoader(
             train_set, batch_size=10, shuffle=True)
     
-    test_set = my_data_set(test_csv,test_img_path)
+    test_set = My_data_set(test_csv,test_img_path)
     test_loader = torch.utils.data.DataLoader(
             test_set,batch_size= len(test_set) ,shuffle=False)
     
@@ -84,7 +84,7 @@ def color_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
 
 def lab_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
 
-    class my_data_set(Dataset):
+    class My_data_set(Dataset):
         def __init__(self, csv_path, root_dir):
             self.train_df = pd.read_csv(csv_path)
             self.root_dir = root_dir
@@ -108,11 +108,11 @@ def lab_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
             return self.transform(image_lab), int(label)
     
 
-    train_set = my_data_set(train_csv, train_img_path)
+    train_set = My_data_set(train_csv, train_img_path)
     train_loader = torch.utils.data.DataLoader(
             train_set, batch_size=10, shuffle=True)
     
-    test_set = my_data_set(test_csv,test_img_path)
+    test_set = My_data_set(test_csv,test_img_path)
     test_loader = torch.utils.data.DataLoader(
             test_set,batch_size= len(test_set) ,shuffle=False)
     
