@@ -6,12 +6,12 @@ from natsort import natsorted
 
 
 class Filepath():
-    def __init__(self,image_folder,csv_folder):
+    def __init__(self, image_folder, csv_folder):
         self.image_folder = image_folder
         self.csv_folder = csv_folder
         self.image_path = os.path.join("../image-data/",self.image_folder)
         self.csv_path = os.path.join("csv/label_name_data",self.csv_folder,self.csv_folder + ".csv")
-    
+
     def image(self):
         return self.image_path
 
