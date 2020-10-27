@@ -34,6 +34,8 @@ class Filepath():
         self.train_shadow_csv_path = os.path.join("csv/label_name_data/train_shadow" ,self.csv_folder + "_bright_about" + num + ".csv")
         return self.train_shadow_csv_path 
 
+
+
 def get_dir_size(path='.'):
     total = 0
     with os.scandir(path) as it:
@@ -44,6 +46,7 @@ def get_dir_size(path='.'):
                 total += get_dir_size(entry.path)
     return total
 
+
 train_path_box = Filepath("8_12_train","8_12_train")
 train_shadow_path_box = Filepath("train_shadow","train_shadow")
 test_mix_path_box = Filepath("test_mix","test_mix")
@@ -51,7 +54,7 @@ test_mix_path_box = Filepath("test_mix","test_mix")
 
 #train_name = os.path.basename(train_image_path)
 
-def main():
+
     COLOR = 0b1
     BINARY = 0b10
     BRIGHTNESS = 0b100
@@ -73,7 +76,8 @@ def main():
     test_img_index = 1
     train_name = ""
     #############################################
-            
+
+
     ##### for mix param #####
     MIX |= ON
     folder_name1_epoch = 50

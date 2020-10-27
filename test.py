@@ -4,13 +4,10 @@ import cv2
 from my_module import make_data_set as dataset
 from my_module import classify_mix_image as classify
 import numpy as np
-import torch
-import torchvision
 import matplotlib.pyplot as plt
 import os
 import csv
 import pandas as pd
-
 
 
 def imshow(img):
@@ -24,7 +21,7 @@ def imshow(img):
 
 #for i in range(len(img_name)):
 #
-#    image = cv2.imread(os.path.join(test_path, img_name[i]))
+#    image = cv2.imread(os.path.join(test_path, img_name[i])e
 #    image = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
 #    image_lab = image[:,:,0]
 #    #image_lab = image_lab.flatten()
@@ -48,8 +45,9 @@ class A:
         self.txit = natsorted(glob.glob(os.path.join("../image-data/",txit,"classify/*")))
         return(self.txit)
 
+
 aiu = A()
 print(aiu.test("test_mix"))
 print(aiu.test)
 mix_folder_name = "test_mix"
-print(mix_test_csv)
+print(mix_test_image)
