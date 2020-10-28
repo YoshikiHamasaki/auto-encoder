@@ -1,13 +1,14 @@
 from natsort import natsorted
 import glob
-import cv2
 from my_module import make_data_set as dataset
 from my_module import classify_mix_image as classify
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 import csv
+import cv2
 import pandas as pd
+
 
 
 def imshow(img):
