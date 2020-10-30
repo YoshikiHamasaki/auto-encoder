@@ -4,7 +4,6 @@ import glob
 import os
 from natsort import natsorted
 
-a
 
 class Filepath():
     def __init__(self, image_folder, csv_folder):
@@ -20,19 +19,23 @@ class Filepath():
         return self.csv_path
 
     def for_mix_image(self):
-        self.classify_image_path = natsorted(glob.glob(os.path.join("../image-data",self.image_folder,"classify/*")))
+        self.classify_image_path = 
+        natsorted(glob.glob(os.path.join("../image-data",self.image_folder,"classify/*")))
         return self.classify_image_path
 
     def for_mix_csv(self):
-        self.classify_csv_path = natsorted(glob.glob(os.path.join("csv/label_name_data",self.csv_folder + "/*")))
+        self.classify_csv_path = 
+        natsorted(glob.glob(os.path.join("csv/label_name_data",self.csv_folder + "/*")))
         return self.classify_csv_path
 
     def for_train_shadow_image(self,num):
-        self.train_shadow_image_path = os.path.join("../image-data",self.image_folder + "_bright_about" + num)
+        self.train_shadow_image_path = 
+        os.path.join("../image-data",self.image_folder + "_bright_about" + num)
         return self.train_shadow_image_path
 
     def for_train_shadow_csv(self,num):
-        self.train_shadow_csv_path = os.path.join("csv/label_name_data/train_shadow" ,self.csv_folder + "_bright_about" + num + ".csv")
+        self.train_shadow_csv_path = 
+        os.path.join("csv/label_name_data/train_shadow" ,self.csv_folder + "_bright_about" + num + ".csv")
         return self.train_shadow_csv_path 
 
 

@@ -8,8 +8,9 @@ import os
 import csv
 import cv2
 import pandas as pd
+import time 
 
-q
+
 
 def imshow(img):
     img = torchvision.utils.make_grid(img)
@@ -17,6 +18,8 @@ def imshow(img):
     npimg = img.detach().numpy()
     plt.imshow(np.transpose(npimg,(1,2,0)))
     plt.show()
+
+
 
 #img_name = os.listdir(test_path) 
 
@@ -46,6 +49,9 @@ class A:
         self.txit = natsorted(glob.glob(os.path.join("../image-data/",txit,"classify/*")))
         return(self.txit)
 
+for x in range(5):
+    print(x)
+    time.sleep(5)
 
 aiu = A()
 print(aiu.test("test_mix"))
