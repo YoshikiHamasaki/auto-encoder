@@ -3,61 +3,18 @@ from my_module import classify_mix_image as classify
 import glob
 import os
 from natsort import natsorted
+from FilePath_Class import FilePath
+from get_dir_size import get_dir_size
 
 
-class Filepath():
-    def __init__(self, image_folder, csv_folder):
-        self.image_folder = image_folder
-        self.csv_folder = csv_folder
-        self.image_path = os.path.join("../image-data/",self.image_folder)
-        self.csv_path = os.path.join("csv/label_name_data",self.csv_folder,self.csv_folder + ".csv")
-
-    def image(self):
-        return self.image_path
-
-    def csv(self):
-        return self.csv_path
-
-    def for_mix_image(self):
-        self.classify_image_path = 
-        natsorted(glob.glob(os.path.join("../image-data",self.image_folder,"classify/*")))
-        return self.classify_image_path
-
-    def for_mix_csv(self):
-        self.classify_csv_path = 
-        natsorted(glob.glob(os.path.join("csv/label_name_data",self.csv_folder + "/*")))
-        return self.classify_csv_path
-
-    def for_train_shadow_image(self,num):
-        self.train_shadow_image_path = 
-        os.path.join("../image-data",self.image_folder + "_bright_about" + num)
-        return self.train_shadow_image_path
-
-    def for_train_shadow_csv(self,num):
-        self.train_shadow_csv_path = 
-        os.path.join("csv/label_name_data/train_shadow" ,self.csv_folder + "_bright_about" + num + ".csv")
-        return self.train_shadow_csv_path 
-
-
-
-def get_dir_size(path='.'):
-    total = 0
-    with os.scandir(path) as it:
-        for entry in it:
-            if entry.is_file():
-                total += entry.stat().st_size
-            elif entry.is_dir():
-                total += get_dir_size(entry.path)
-    return total
-
-
-train_path_box = Filepath("8_12_train","8_12_train")
-train_shadow_path_box = Filepath("train_shadow","train_shadow")
-test_mix_path_box = Filepath("test_mix","test_mix")
+train_path_box = FilePath("8_12_train","8_12_train")
+train_shadow_path_box = FilePath("train_shadow","train_shadow")
+test_mix_path_box = FilePath("test_mix","test_mix")
 
 
 #train_name = os.path.basename(train_image_path)
 
+def main():
 
     COLOR = 0b1
     BINARY = 0b10
