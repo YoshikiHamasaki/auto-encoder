@@ -1,16 +1,8 @@
-from my_module import start_detection as detect
-from my_module import classify_mix_image as classify
 import os
+from my_module import start_detection as detect
+from my_module.classify_mix_image import classify
 from my_module.FilePath_Class import FilePath
 from my_module.get_dir_size import get_dir_size
-
-
-train_path_box = FilePath("8_12_train","8_12_train")
-train_shadow_path_box = FilePath("train_shadow","train_shadow")
-test_mix_path_box = FilePath("test_mix","test_mix")
-
-
-#train_name = os.path.basename(train_image_path)
 
 def main():
 
@@ -37,7 +29,6 @@ def main():
     train_name = "train_shadow_bright_about60"
     #############################################
 
-
     ##### for mix param #####
     MIX |= ON
     folder_name1_epoch = 50
@@ -45,8 +36,14 @@ def main():
     folder_name3_epoch = 50
     folder_name4_epoch = 100
     #########################
+
+    train_path_box = FilePath("8_12_train","8_12_train")
+    train_shadow_path_box = FilePath("train_shadow","train_shadow")
+    test_mix_path_box = FilePath("test_mix","test_mix")
+    #train_name = os.path.basename(train_image_path)
+
     if MIX & ON:
-        classify.classify(test_mix_path_box.image() ,"csv/analysis/test_mix_param.csv")
+        classify(test_mix_path_box.image() ,"csv/analysis/test_mix_param.csv")
         for i in range(len(test_mix_path_box.for_mix_image())):
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about40" and get_dir_size(test_mix_path_box.for_mix_image()[i])!= 0:
                 train_name = "train_shadow_bright_about40"
