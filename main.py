@@ -1,10 +1,8 @@
 from my_module import start_detection as detect
 from my_module import classify_mix_image as classify
-import glob
 import os
-from natsort import natsorted
-from FilePath_Class import FilePath
-from get_dir_size import get_dir_size
+from my_module.FilePath_Class import FilePath
+from my_module.get_dir_size import get_dir_size
 
 
 train_path_box = FilePath("8_12_train","8_12_train")
@@ -23,19 +21,20 @@ def main():
     image_type = 0
     MIX = 0
     ######### setting parameter #################
-    #image_type |= BRIGHTNESS#
+
+    #image_type |= BRIGHTNESS
     AE_type = "LAB"
     num_epochs = 100
     optimizer_type = "SGD"
     learning_rate = 0.05
     weight_decay = 1e-5
     input_size = 28*28
-    train_csv_path = "csv/train_shadow_bright_about60.csv" 
-    test_csv_path = "csv/test_shadow_bad.csv" 
+    train_csv_path = "csv/label_name_data/train_shadow/train_shadow_bright_about60.csv" 
+    test_csv_path = "csv/label_name_data/test_good.csv" 
     train_image_path = "../image-data/train_shadow_bright_about60" 
-    test_image_path = "../image-data/test_shadow_bad" 
-    test_img_index = 1
-    train_name = ""
+    test_image_path = "../image-data/test_good" 
+    test_img_index = "ALL"
+    train_name = "train_shadow_bright_about60"
     #############################################
 
 
@@ -54,7 +53,7 @@ def main():
                 detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("40"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("40"),test_mix_path_box.for_mix_image()[i],test_img_index,train_name)
-
+                print("about40 end")
 
 
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about60" and get_dir_size(test_mix_path_box.for_mix_image()[i]) != 0:
@@ -62,7 +61,7 @@ def main():
                 detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("60"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("60"),test_mix_path_box.for_mix_image()[i],test_img_index,train_name)
-
+                print("about60 end")
 
 
 
@@ -71,6 +70,7 @@ def main():
                 detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("100"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("100"),test_mix_path_box.for_mix_image()[i],test_img_index,train_name)
+                print("about100 end")
                 
 
 
@@ -80,6 +80,7 @@ def main():
                 detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_path_box.csv(),test_mix_path_box.for_mix_csv()[i],train_path_box.image(),test_mix_path_box.for_mix_image()[i],
                 test_img_index,train_name)
+                print("over135 end")
 
 
 
@@ -94,10 +95,9 @@ def main():
     if image_type & BRIGHTNESS:
         detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
                 train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name)
-        print("a")
 
     else:
-        print("select image_type")
+        print("miss! select image_type")
 
 
 if __name__ == "__main__":
