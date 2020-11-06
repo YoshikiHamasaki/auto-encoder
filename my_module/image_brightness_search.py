@@ -4,11 +4,12 @@ import cv2
 import numpy as np
 import scipy.stats as stats
 import math
+from natsort import natsorted
 
 
 def search(test_path,csv_path):
 
-    img_name = os.listdir(test_path) 
+    img_name = natsorted(os.listdir(test_path))
     
     
     image_name = []
@@ -31,20 +32,20 @@ def search(test_path,csv_path):
         uniqs,counts = np.unique(image_lab,return_counts=True)
         mode.append(str((uniqs[counts == np.amax(counts)].min())).strip("[]"))
 
-        if np.average(image_lab) < 49:
+        if np.average(image_lab) <= 49:
             class_ave_folder.append("about40")
         
-        elif 50 < np.average(image_lab) < 79:
+        elif 49 < np.average(image_lab) <= 79:
             class_ave_folder.append("about60")
 
-        elif 80 < np.average(image_lab) < 135:
+        elif 79 < np.average(image_lab) <= 135:
             class_ave_folder.append("about100")
 
-        elif 136 < np.average(image_lab):
+        elif 135 < np.average(image_lab):
             class_ave_folder.append("over135")
 
         else:
-            pass
+            print("else")
     
     list_data = [image_name,abusolute_dif,ave,mode,class_ave_folder]
     

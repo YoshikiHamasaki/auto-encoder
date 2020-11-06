@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from natsort import natsorted
 from my_module import make_csv 
 from my_module import image_brightness_search as search
 from my_module import image_rename 
@@ -11,7 +12,6 @@ folder_name1 = "about40"
 folder_name2 = "about60"
 folder_name3 = "about100"
 folder_name4 = "over135"
-
 
 
 
@@ -34,7 +34,7 @@ def classify(test_path,csv_path):
         for i in folder_list:
             os.mkdir(check_path + "/" + i)
 
-        os.mkdir(os.path.join(check_path,"csv"))
+        #os.mkdir(os.path.join(check_path,"csv"))
 
         df = pd.read_csv(csv_path)
 
@@ -64,8 +64,8 @@ def classify(test_path,csv_path):
                 shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name4 ,str(image_name[x])))
                 image_rename.rename(os.path.join(check_path, folder_name4 ))
         
-        if not os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name):
-            os.mkdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name))
+    if not os.path.isdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name)):
+        os.mkdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name))
 
-        for i,j in enumerate(folder_list):
-            make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data", test_file_name ,folder_list[i] + "_data.csv"),0)
+    for i,j in enumerate(folder_list):
+        make_csv.make_csv(os.path.join(check_path,folder_list[i]),os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data", test_file_name ,folder_list[i] + "_data.csv"),0)

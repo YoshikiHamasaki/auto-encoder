@@ -6,8 +6,10 @@ from my_module.get_dir_size import get_dir_size
 
 
 train_path_box = FilePath("8_12_train","8_12_train")
+#影の学習用画像フォルダ名
 train_shadow_path_box = FilePath("train_shadow","train_shadow")
-test_mix_path_box = FilePath("test_mix","test_mix")
+#テストしたいフォルダ名を入力
+test_mix_path_box = FilePath("test_11_6","test_11_6")
 
 
 #train_name = os.path.basename(train_image_path)
@@ -34,7 +36,7 @@ def main():
     train_image_path = "../image-data/train_shadow_bright_about60" 
     test_image_path = "../image-data/test_good" 
     test_img_index = "ALL"
-    train_name = "train_shadow_bright_about60"
+    train_name = ""
     #############################################
 
 
@@ -43,10 +45,10 @@ def main():
     folder_name1_epoch = 50
     folder_name2_epoch = 50
     folder_name3_epoch = 50
-    folder_name4_epoch = 100
+    folder_name4_epoch = 350
     #########################
     if MIX & ON:
-        classify.classify(test_mix_path_box.image() ,"csv/analysis/test_mix_param.csv")
+        classify.classify(test_mix_path_box.image() ,"csv/analysis/test_11_6_param.csv")
         for i in range(len(test_mix_path_box.for_mix_image())):
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about40" and get_dir_size(test_mix_path_box.for_mix_image()[i])!= 0:
                 train_name = "train_shadow_bright_about40"
@@ -74,10 +76,9 @@ def main():
                 
 
 
-            if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "over135" and get_dir_size(test_mix_path_box.for_mix_image()[i]) != 0:
+            #if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "over135" and get_dir_size(test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "8_12_train"
-                num_epochs = folder_name4_epoch
-                detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,
+                detect.for_color_detect(AE_type,folder_name4_epoch,optimizer_type,learning_rate,input_size,
                 train_path_box.csv(),test_mix_path_box.for_mix_csv()[i],train_path_box.image(),test_mix_path_box.for_mix_image()[i],
                 test_img_index,train_name)
                 print("over135 end")

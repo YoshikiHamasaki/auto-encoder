@@ -19,7 +19,7 @@ date_min = date_now.minute
 
 
 ####### setting parameter ############
-path = '../image-data/original'
+path = '../image-data/original2'
 image_path = natsorted(glob.glob(path + '/*.jpg'))
 out_path = f"../image-data/trimming/{date_month}_{date_day}_{date_hour}_{date_min}"
 os.mkdir(out_path)
