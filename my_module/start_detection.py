@@ -13,7 +13,7 @@ from torch.autograd import Variable
 
 
 
-def for_color_detect(AE_type,num_epochs,optimizer_type,learning_rate,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name):
+def for_color_detect(AE_type,num_epochs,optimizer_type,learning_rate,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name,error_th):
 
     device =  "cpu" 
     save_type = "color"
@@ -30,9 +30,9 @@ def for_color_detect(AE_type,num_epochs,optimizer_type,learning_rate,input_size,
 
     np.save(f"./result/loss_list.npy", np.array(loss_list)) 
     
-    pred.pred_color_image(test_loader,test_img_index,model,input_size)
+    pred.pred_color_image(test_loader,test_img_index,model,input_size,error_th)
 
-def for_bin_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name):
+def for_bin_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name,error_th):
 
     device =  'cpu'
     save_type = "binary"
@@ -47,7 +47,7 @@ def for_bin_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,
     loss_list, model = cal.calculate(num_epochs,train_loader,model,optimizer,
             f"result/train_folder={train_name} image_type={save_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl") 
     np.save(f"./result/loss_list.npy", np.array(loss_list)) 
-    pred.pred_bin_image(test_loader,test_img_index,model) 
+    pred.pred_bin_image(test_loader,test_img_index,model,error_th) 
     #loss_list = np.load('{}/loss_list.npy'.format(out_dir))
     #plt.plot(loss_list)
     #plt.xlabel('iteration')
@@ -55,7 +55,7 @@ def for_bin_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,
     #plt.grid()
     #plt.show()
 
-def for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name):
+def for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name,error_th):
 
     device =  'cpu'
     save_type = "lab"
@@ -71,5 +71,5 @@ def for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight
             f"result/train_folder={train_name} image_type={save_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl") 
 
     np.save(f"./result/loss_list.npy", np.array(loss_list)) 
-    pred.pred_lab_image(test_loader,test_img_index,model,input_size) 
+    pred.pred_lab_image(test_loader,test_img_index,model,input_size,error_th) 
 
