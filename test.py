@@ -58,3 +58,6 @@ print(aiu.test("test_mix"))
 print(aiu.test)
 mix_folder_name = "test_mix"
 print(mix_test_image)
+x = pd.DataFrame()
+x.to_csv("csv/result.csv")
+

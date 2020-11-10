@@ -8,27 +8,29 @@ def reconstruction_error_2d(input_img,output_img,error_th):
             save.append(e)
 
     E = sum(save)/float(len(save))
-    if error_th = "40" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "40" and E > 4.0:
-        print("abnormal pipe image")
+   
+    if error_th == "40" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "40" and E > 4.0:
+        judge = "abnormal pipe image"
      
-    if error_th = "60" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "60" and E > 4.0:
-        print("abnormal pipe image")
+    elif error_th == "60" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "60" and E > 4.0:
+        judge = "abnormal pipe image"
     
-    if error_th = "100" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "100" and E > 4.0:
-        print("abnormal pipe image")
+    elif error_th == "100" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "100" and E > 4.0:
+        judge = "abnormal pipe image"
     
-    if error_th = "color" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "color" and E > 4.0:
-        print("abnormal pipe image")
+    elif error_th == "color" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "color" and E > 4.0:
+        judge = "abnormal pipe image"
     
-    return E
+    
+    return E,judge
 
 
 
@@ -42,24 +44,25 @@ def reconstruction_error_3d(input_img,output_img,error_th):
 
     E = sum(save)/float(len(save))
 
-    if error_th = "40" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "40" and E > 4.0:
-        print("abnormal pipe image")
+    if error_th == "40" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "40" and E > 4.0:
+        judge = "abnormal pipe image"
      
-    if error_th = "60" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "60" and E > 4.0:
-        print("abnormal pipe image")
+    elif error_th == "60" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "60" and E > 4.0:
+        judge = "abnormal pipe image"
     
-    if error_th = "100" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "100" and E > 4.0:
-        print("abnormal pipe image")
+    elif error_th == "100" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "100" and E > 4.0:
+        judge = "abnormal pipe image"
     
-    if error_th = "color" and E < 4.0:
-        print("normal pipe image")
-    elif error_th = "color" and E > 4.0:
-        print("abnormal pipe image")
-
-    return E
+    elif error_th == "color" and E < 4.0:
+        judge = "normal pipe image"
+    elif error_th == "color" and E > 4.0:
+        judge = "abnormal pipe image"
+    
+    
+    return E,judge
