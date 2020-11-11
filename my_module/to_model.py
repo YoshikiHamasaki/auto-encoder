@@ -42,8 +42,8 @@ def to_model_2d(input_img,index_num,input_size,model,error_th):
     list_data = [E_list,judge_list,train_model_list,index_list]
     df = pd.DataFrame(data = list_data)
     df_T = df.T
-    df_T.columns = ["E_list","judge_list","train_model_list","index_list"]
-    df_T.to_csv("C:/Users/admin.H115/git/auto-encoder/csv/result.csv",mode ="a",index = False)
+    df_T.to_csv("C:/Users/admin.H115/git/auto-encoder/csv/result.csv",mode ="a",index = False,
+            header = False)
 
 def to_model_3d(input_img,index_num,input_size,model,error_th):
 
@@ -84,5 +84,5 @@ def to_model_3d(input_img,index_num,input_size,model,error_th):
     list_data = [E_list,judge_list,train_model_list,index_list]
     df = pd.DataFrame(data = list_data)
     df_T = df.T
-    df_T.columns = ["E_list","judge_list","train_model_list","index_list"]
-    df_T.to_csv("C:/Users/admin.H115/git/auto-encoder/csv/result.csv",mode ="a",index = False)
+    df_T.to_csv("C:/Users/admin.H115/git/auto-encoder/csv/result.csv",mode ="a",index = False,
+            header = False)
