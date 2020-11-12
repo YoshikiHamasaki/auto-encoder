@@ -1,4 +1,5 @@
 import math
+import cv2
 
 def reconstruction_error_2d(input_img,output_img,error_th):  
     save = []
@@ -9,19 +10,19 @@ def reconstruction_error_2d(input_img,output_img,error_th):
 
     E = sum(save)/float(len(save))
    
-    if error_th == "40" and e < 15.0:
+    if error_th == "40" and E < 15.0:
         judge = "normal pipe image"
-    elif error_th == "40" and e >= 15.0:
+    elif error_th == "40" and E >= 15.0:
         judge = "abnormal pipe image"
      
-    elif error_th == "60" and e < 20.0:
+    if error_th == "60" and E < 20.0:
         judge = "normal pipe image"
-    elif error_th == "60" and e >= 20.0:
+    elif error_th == "60" and E >= 20.0:
         judge = "abnormal pipe image"
     
-    elif error_th == "100" and e < 19.0:
+    if error_th == "100" and E < 19.0:
         judge = "normal pipe image"
-    elif error_th == "100" and e >= 19.0:
+    elif error_th == "100" and E >= 19.0:
         judge = "abnormal pipe image"
      
     
@@ -31,6 +32,9 @@ def reconstruction_error_2d(input_img,output_img,error_th):
 
 def reconstruction_error_3d(input_img,output_img,error_th):
     save = []
+    input_img = cv2.cvtColor(input_img,cv2.COLOR_BGR2HSV)
+    input_img[:,:,2] = 150
+    input_img = cv2.cvtColor(input_img,cv2.COLOR_HSV2BGR)
     for c in range(input_img.shape[2]):
         for y in range(input_img.shape[0]):
             for x in range(input_img.shape[1]):

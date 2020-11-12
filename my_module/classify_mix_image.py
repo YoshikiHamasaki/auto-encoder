@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from natsort import natsorted
 from my_module import make_csv 
-from my_module import image_brightness_search as search
+from my_module.separate_folder import separate
 from my_module import image_rename 
 import shutil
 
@@ -29,7 +29,7 @@ def classify(test_path,csv_path):
 
     if not mycheck:
 
-        search.search(test_path,csv_path)
+        separate(test_path,csv_path)
         os.mkdir(check_path)
         for i in folder_list:
             os.mkdir(check_path + "/" + i)

@@ -7,7 +7,7 @@ import math
 from natsort import natsorted
 
 
-def search(test_path,csv_path):
+def separate(test_path,csv_path):
 
     img_name = natsorted(os.listdir(test_path))
     
@@ -38,10 +38,10 @@ def search(test_path,csv_path):
         elif 49 < np.average(image_lab) <= 79:
             class_ave_folder.append("about60")
 
-        elif 79 < np.average(image_lab) <= 135:
+        elif 79 < np.average(image_lab) <= 100:
             class_ave_folder.append("about100")
 
-        elif 135 < np.average(image_lab):
+        elif 100 < np.average(image_lab):
             class_ave_folder.append("over135")
 
         else:
