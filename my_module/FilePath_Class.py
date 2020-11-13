@@ -34,3 +34,6 @@ class FilePath():
                 "csv/label_name_data/train_shadow" ,self.csv_folder + "_bright_about" + num + ".csv")
         return self.train_shadow_csv_path 
 
+    def for_param_csv(self):
+        self.param_csv_path = os.path.join("csv/analysis",self.csv_folder + "_param.csv")
+        return self.param_csv_path
