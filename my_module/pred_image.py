@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import torch
 from torch.autograd import Variable
 from my_module import own_imshow as own_imshow
 from my_module.to_model import to_model_2d
@@ -36,28 +37,38 @@ def pred_bin_image(test_loader,test_img_index,model,error_th):
     plt.show()
 
 
-def pred_color_image(test_loader,test_img_index,model,input_size,error_th): 
+def pred_color_image(test_loader,test_img_index,model,input_size,error_th,AE_type): 
 
     iterator = iter(test_loader)
     ori_img, _ = next(iterator)
-
+    a = torch.tensor([[0,1,2],[3,4,5]])
+    print(a.size())
+    a.detach().numpy()
+    a = np.expand_dims(a,0)
+    print(a.shape)
+    #torch.unsqueeze(a,dim = 2).size()
+    #print(a.size())
+    #print(ori_img[0].size())
+    #torch.unsqueeze(ori_img[0],1)
+    #print(ori_img[0].size())
+    
     if test_img_index == "ALL":
         input_img = ori_img
-        to_model_3d(input_img,len(input_img),input_size,model,error_th)
+        to_model_3d(input_img,len(input_img),input_size,model,error_th,AE_type)
     else:
         input_img = ori_img[test_img_index]
-        to_model_3d(input_img,test_img_index,input_size,model,error_th)
+        to_model_3d(input_img,test_img_index,input_size,model,error_th,AE_type)
 
     
-def pred_lab_image(test_loader,test_img_index,model,input_size,error_th): 
+def pred_lab_image(test_loader,test_img_index,model,input_size,error_th,AE_type): 
 
     iterator = iter(test_loader)
     ori_img, _ = next(iterator)
 
     if test_img_index == "ALL":
         input_img = ori_img
-        to_model_2d(input_img,len(input_img),input_size,model,error_th)
+        to_model_2d(input_img,len(input_img),input_size,model,error_th,AE_type)
 
     else:
         input_img = ori_img[test_img_index]
-        to_model_2d(input_img,test_img_index,input_size,model,error_th)
+        to_model_2d(input_img,test_img_index,input_size,model,error_th,AE_type)

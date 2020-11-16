@@ -6,7 +6,7 @@ from torch import nn,optim
 import cloudpickle
 import os
 
-def calculate(num_epochs,train_loader,model,optimizer,model_pass):
+def calculate(num_epochs,train_loader,model,optimizer,model_pass,AE_type):
 
  criterion = nn.MSELoss()
  loss_list = []
@@ -16,7 +16,11 @@ def calculate(num_epochs,train_loader,model,optimizer,model_pass):
      for epoch in range(num_epochs):
          for data in train_loader:
              img, _ = data
-             x = img.view(img.size(0), -1)
+
+             if AE_type == "CONV":
+                 x = img
+             else:
+                 x = img.view(img.size(0), -1)
              
              x = Variable(x)
              

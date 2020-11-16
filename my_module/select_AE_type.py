@@ -9,6 +9,10 @@ def select_AE_type(AE_type,input_size):
     
     elif AE_type == "LAB":
         model = AE.lab_autoencoder(input_size)
+    
+    elif AE_type == "CONV":
+        model = AE.conv_autoencoder()
+    
     else:
         print("select AE_type error")
     return model

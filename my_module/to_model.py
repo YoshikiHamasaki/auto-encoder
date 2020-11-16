@@ -1,10 +1,11 @@
 import numpy as np
 import pandas as pd
+import torch
 from my_module.reconstruction_error import reconstruction_error_3d
 from my_module.reconstruction_error import reconstruction_error_2d
 from torch.autograd import Variable
 
-def to_model_2d(input_img,index_num,input_size,model,error_th):
+def to_model_2d(input_img,index_num,input_size,model,error_th,AE_type):
     
     E_list = []
     judge_list = []
@@ -17,8 +18,12 @@ def to_model_2d(input_img,index_num,input_size,model,error_th):
         save_input_img = input_img[i].detach().numpy()
         save_input_img = (save_input_img/2 +0.5)*255
         save_input_img = np.transpose(save_input_img,(1,2,0))
+
+        if AE_type == "CONV":
+            result_img = input_img[i]
+        else:
+            result_img = input_img[i].view(-1,input_size)
         
-        result_img = input_img[i].view(-1,input_size)
         result_img = Variable(result_img)
         #print(result_img.shape)
         result_img = model(result_img)
@@ -26,8 +31,10 @@ def to_model_2d(input_img,index_num,input_size,model,error_th):
         
         result_img = (result_img/2 +0.5)*255
         result_np_img = result_img.detach().numpy()
+       
+        if AE_type != "CONV":
+            result_np_img = result_np_img.reshape(1,28,28)
         
-        result_np_img = result_np_img.reshape(1,28,28)
         result_np_img_reshape = np.transpose(result_np_img,(1,2,0)) 
         
         #print(result_np_img_reshape)
@@ -45,7 +52,7 @@ def to_model_2d(input_img,index_num,input_size,model,error_th):
     df_T.to_csv("C:/Users/admin.H115/git/auto-encoder/csv/result.csv",mode ="a",index = False,
             header = False)
 
-def to_model_3d(input_img,index_num,input_size,model,error_th):
+def to_model_3d(input_img,index_num,input_size,model,error_th,AE_type):
 
     E_list = []
     judge_list = []
@@ -59,7 +66,15 @@ def to_model_3d(input_img,index_num,input_size,model,error_th):
         save_input_img = (save_input_img/2 +0.5)*255
         save_input_img = np.transpose(save_input_img,(1,2,0))
         
-        result_img = input_img[i].view(-1,input_size)
+        if AE_type == "CONV":
+            result_img = input_img[i]
+            result_img.detach().numpy()
+            result_img = np.expand_dims(result_img,0)
+            result_img = torch.tensor(result_img)
+
+        else:
+            result_img = input_img[i].view(-1,input_size)
+        
         result_img = Variable(result_img)
         #print(result_img.shape)
         result_img = model(result_img)
@@ -67,6 +82,9 @@ def to_model_3d(input_img,index_num,input_size,model,error_th):
         
         result_img = (result_img/2 +0.5)*255
         result_np_img = result_img.detach().numpy()
+        
+        if AE_type != "CONV":
+            result_np_img = result_np_img.reshape(1,28,28)
         
         result_np_img = result_np_img.reshape(3,28,28)
         #print(result_np_img.shape)
