@@ -110,20 +110,18 @@ class conv_autoencoder(nn.Module):
         super().__init__()
         self.encoder = nn.Sequential(
             
-            nn.Conv2d(3,14,3,padding=1),
+            nn.Conv2d(3,14,kernel_size=4,padding=1,stride=2),
             nn.ReLU(),
-            nn.MaxPool2d(2),
-            nn.Conv2d(14,8,3,padding=1),
+            nn.Conv2d(14,28,kernel_size=4,padding=1,stride=2),
             nn.ReLU(),
-            nn.MaxPool2d(2)
 
         )
 
         self.decoder = nn.Sequential(
 
-            nn.ConvTranspose2d(8,14,kernel_size=2,stride=2),
+            nn.ConvTranspose2d(28,14,kernel_size=4,padding=1,stride=2),
             nn.ReLU(),
-            nn.ConvTranspose2d(14,3,kernel_size=2,stride=2),
+            nn.ConvTranspose2d(14,3,kernel_size=4,padding=1,stride=2),
             nn.Sigmoid()
 
         )

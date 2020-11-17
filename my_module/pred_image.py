@@ -41,16 +41,6 @@ def pred_color_image(test_loader,test_img_index,model,input_size,error_th,AE_typ
 
     iterator = iter(test_loader)
     ori_img, _ = next(iterator)
-    a = torch.tensor([[0,1,2],[3,4,5]])
-    print(a.size())
-    a.detach().numpy()
-    a = np.expand_dims(a,0)
-    print(a.shape)
-    #torch.unsqueeze(a,dim = 2).size()
-    #print(a.size())
-    #print(ori_img[0].size())
-    #torch.unsqueeze(ori_img[0],1)
-    #print(ori_img[0].size())
     
     if test_img_index == "ALL":
         input_img = ori_img
