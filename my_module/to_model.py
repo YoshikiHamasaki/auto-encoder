@@ -84,9 +84,8 @@ def to_model_3d(input_img,index_num,input_size,model,error_th,AE_type):
         result_np_img = result_img.detach().numpy()
         
         if AE_type != "CONV":
-            result_np_img = result_np_img.reshape(1,28,28)
+            result_np_img = result_np_img.reshape(3,28,28)
         
-        result_np_img = result_np_img.reshape(3,28,28)
         #print(result_np_img.shape)
         result_np_img_reshape = np.transpose(result_np_img,(1,2,0)) 
         

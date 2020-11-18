@@ -11,7 +11,8 @@ import shutil
 folder_name1 = "about40"
 folder_name2 = "about60"
 folder_name3 = "about100"
-folder_name4 = "over135"
+folder_name4 = "about120"
+folder_name5 = "over135"
 
 
 
@@ -22,7 +23,7 @@ def classify(test_path,csv_path):
 
     mycheck = os.path.isdir(check_path)
     
-    folder_list = [folder_name1,folder_name2,folder_name3,folder_name4]
+    folder_list = [folder_name1,folder_name2,folder_name3,folder_name4,folder_name5]
 
     test_file_name = os.path.basename(test_path)
     
@@ -62,8 +63,14 @@ def classify(test_path,csv_path):
             elif y == folder_name4:
                 list_folder.append(y) 
                 shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name4 ,str(image_name[x])))
-                image_rename.rename(os.path.join(check_path, folder_name4 ))
-        
+                image_rename.rename(os.path.join(check_path, folder_name4))
+
+
+            elif y == folder_name5:
+                list_folder.append(y) 
+                shutil.copy(os.path.join(test_path,image_name[x]),os.path.join(check_path, folder_name5 ,str(image_name[x])))
+                image_rename.rename(os.path.join(check_path, folder_name5))
+
     if not os.path.isdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name)):
         os.mkdir(os.path.join("C:/Users/admin.H115/git/auto-encoder/csv/label_name_data",test_file_name))
 

@@ -25,16 +25,18 @@ def reconstruction_error_2d(input_img,output_img,error_th):
     elif error_th == "100" and E >= 19.0:
         judge = "abnormal pipe image"
      
-    
+    if error_th == "120" and E < 19.0:
+        judge = "normal pipe image"
+    elif error_th == "120" and E >= 19.0:
+        judge = "abnormal pipe image"
+   
+
     return E,judge
 
 
 
 def reconstruction_error_3d(input_img,output_img,error_th):
     save = []
-    input_img = cv2.cvtColor(input_img,cv2.COLOR_BGR2HSV)
-    input_img[:,:,2] = 150
-    input_img = cv2.cvtColor(input_img,cv2.COLOR_HSV2BGR)
     for c in range(input_img.shape[2]):
         for y in range(input_img.shape[0]):
             for x in range(input_img.shape[1]):

@@ -38,12 +38,15 @@ def separate(test_path,csv_path):
         elif 49 < np.average(image_lab) <= 79:
             class_ave_folder.append("about60")
 
-        elif 79 < np.average(image_lab) <= 100:
+        elif 79 < np.average(image_lab) <= 105:
             class_ave_folder.append("about100")
 
-        elif 100 < np.average(image_lab):
-            class_ave_folder.append("over135")
+        elif 105 < np.average(image_lab) <= 135: 
+            class_ave_folder.append("about120")
 
+        elif 135 < np.average(image_lab):
+            class_ave_folder.append("over135")
+     
         else:
             print("else")
     

@@ -7,9 +7,6 @@ from my_module.FilePath_Class import FilePath
 from my_module.get_dir_size import get_dir_size
 
 
-
-
-
 #train_name = os.path.basename(train_image_path)
 
 def main():
@@ -25,12 +22,12 @@ def main():
      #影の学習用画像フォルダ名
     train_shadow_path_box = FilePath("train_shadow","train_shadow")
      #テストしたいフォルダ名を入力
-    test_mix_path_box = FilePath("test_good","test_good")
+    test_mix_path_box = FilePath("test_11_11","test_11_11")
     #train_name = os.path.basename(train_image_path)
 
 
     ############# setting parameter #################
-    image_type |= COLOR
+    image_type |= 0
     AE_type = "CONV"
     num_epochs = 100
     optimizer_type = "SGD"
@@ -46,11 +43,12 @@ def main():
     #############################################
 
     ##### for mix param #####
-    MIX |= 0
-    folder_name1_epoch = 50
-    folder_name2_epoch = 50
-    folder_name3_epoch = 50
-    folder_name4_epoch = 350
+    MIX |= ON
+    folder_name1_epoch = 100
+    folder_name2_epoch = 100
+    folder_name3_epoch = 100
+    folder_name4_epoch = 100
+    folder_name5_epoch = 350
     #########################
 
 
@@ -67,7 +65,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about40" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i])!= 0:
                 train_name = "train_shadow_bright_about40"
-                detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,
+                detect.for_brightness_detect("LAB",folder_name1_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("40"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("40"),
@@ -78,7 +76,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about60" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "train_shadow_bright_about60"
-                detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,
+                detect.for_brightness_detect("LAB",folder_name2_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("60"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("60"),
@@ -90,7 +88,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about100" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "train_shadow_bright_about100"
-                detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,
+                detect.for_brightness_detect("LAB",folder_name3_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("100"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("100"),
@@ -99,10 +97,22 @@ def main():
                 
 
 
+            if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about120" and get_dir_size(
+                    test_mix_path_box.for_mix_image()[i]) != 0:
+                train_name = "train_shadow_bright_about120"
+                detect.for_brightness_detect("LAB",folder_name4_epoch,optimizer_type,
+                        learning_rate,weight_decay,input_size,
+                train_shadow_path_box.for_train_shadow_csv("120"),test_mix_path_box.for_mix_csv()[i],
+                train_shadow_path_box.for_train_shadow_image("120"),
+                test_mix_path_box.for_mix_image()[i],test_img_index,train_name,error_th = "120")
+                print("about120 end")
+
+
+
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "over135" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "8_12_train"
-                detect.for_color_detect("COLOR",folder_name4_epoch,optimizer_type,
+                detect.for_color_detect("COLOR",folder_name5_epoch,optimizer_type,
                         learning_rate,3*28*28,
                 train_path_box.csv(),test_mix_path_box.for_mix_csv()[i],
                 train_path_box.image(),test_mix_path_box.for_mix_image()[i],
