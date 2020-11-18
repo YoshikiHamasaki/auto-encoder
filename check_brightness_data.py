@@ -4,8 +4,8 @@ import cv2
 from my_module import image_rename as rename
 
 
-test_path = "C:/Users/admin.H115/git/image-data/11_13_search4" 
-csv_name = "csv/lab data/11_13_search4.csv"
+test_path = "../image/image-data/trimming/11_18_13_46/" 
+csv_name = "./csv/lab_data/1118_1.csv"
 rename.rename(test_path)
 
 img_name = os.listdir(test_path) 
