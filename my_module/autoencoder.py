@@ -42,16 +42,16 @@ class color_autoencoder(nn.Module):
             nn.ReLU(True),
             nn.Linear(input_size//4, input_size//8),
             nn.ReLU(True),
-            nn.Linear(input_size//8, input_size//16),
-            nn.ReLU(True),
-            nn.Linear(input_size//16, input_size//28),
+            nn.Linear(input_size//8, input_size//16)
+            #nn.ReLU(True),
+            #nn.Linear(input_size//16, input_size//28),
 
         )
 
         self.decoder = nn.Sequential(
 
-            nn.Linear(input_size//28, input_size//16),
-            nn.ReLU(True),
+            #nn.Linear(input_size//28, input_size//16),
+            #nn.ReLU(True),
             nn.Linear(input_size//16, input_size//8),
             nn.ReLU(True),
             nn.Linear(input_size//8, input_size//4),

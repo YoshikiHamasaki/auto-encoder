@@ -19,14 +19,11 @@ date_min = date_now.minute
 
 
 ####### setting parameter ############
-path = '../image-data/original'
+path = '../image-data/ori_train'
 image_path = natsorted(glob.glob(path + '/*.jpg'))
 out_path = f"../image-data/trimming/{date_month}_{date_day}_{date_hour}_{date_min}"
 os.mkdir(out_path)
 ######################################
-
-
-
 
 
 def get_image_point(path):
@@ -58,7 +55,7 @@ def get_image_point(path):
             if event.type == MOUSEMOTION:
                 mx, my = event.pos
             
-            if event.type == KEYDOWN:       # キーを押したとき
+            if event.type == KEYDOWN:      # キーを押したとき
                 if event.key == K_ESCAPE:   # Escキーが押されたとき
                     pygame.quit()
                     sys.exit()

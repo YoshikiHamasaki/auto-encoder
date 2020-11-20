@@ -11,6 +11,7 @@ from my_module.get_dir_size import get_dir_size
 
 def main():
 
+    OFF = 0
     COLOR = 0b1
     BINARY = 0b10
     BRIGHTNESS = 0b100
@@ -22,28 +23,28 @@ def main():
      #影の学習用画像フォルダ名
     train_shadow_path_box = FilePath("train_shadow","train_shadow")
      #テストしたいフォルダ名を入力
-    test_mix_path_box = FilePath("test_11_11","test_11_11")
+    test_mix_path_box = FilePath("test_11_6","test_11_6")
     #train_name = os.path.basename(train_image_path)
 
 
     ############# setting parameter #################
-    image_type |= 0
-    AE_type = "CONV"
-    num_epochs = 100
+    image_type |= COLOR
+    AE_type = "COLOR"
+    num_epochs = 200
     optimizer_type = "SGD"
     learning_rate = 0.05
     weight_decay = 1e-5
     input_size = 28*28
-    train_csv_path = "csv/label_name_data/8_12_train/8_12_train.csv" 
-    test_csv_path = "csv/label_name_data/test_good.csv" 
-    train_image_path = "../image-data/8_12_train" 
-    test_image_path = "../image-data/test_good" 
+    train_csv_path = "csv/label_name_data/color_train_retry.csv" 
+    test_csv_path = "csv/label_name_data/test_11_11/about60_data.csv" 
+    train_image_path = "../image-data/color_train_retry" 
+    test_image_path = "../image-data/test_11_11/classify/about60" 
     test_img_index = "ALL"
-    train_name = "8_12_train"
+    train_name = "color_train_retry"
     #############################################
 
     ##### for mix param #####
-    MIX |= ON
+    MIX |= OFF
     folder_name1_epoch = 100
     folder_name2_epoch = 100
     folder_name3_epoch = 100

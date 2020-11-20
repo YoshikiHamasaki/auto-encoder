@@ -74,7 +74,7 @@ def color_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
 
 
     train_loader = torch.utils.data.DataLoader(
-            train_set, batch_size=10, shuffle=True)
+            train_set, batch_size=50, shuffle=True)
     
     test_set = My_data_set(test_csv,test_img_path)
     test_loader = torch.utils.data.DataLoader(
