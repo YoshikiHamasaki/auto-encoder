@@ -28,19 +28,19 @@ def main():
 
 
     ############# setting parameter #################
-    image_type |= COLOR
-    AE_type = "COLOR"
-    num_epochs = 200
+    image_type |= BRIGHTNESS
+    AE_type = "LAB"
+    num_epochs = 100
     optimizer_type = "SGD"
     learning_rate = 0.05
     weight_decay = 1e-5
     input_size = 28*28
-    train_csv_path = "csv/label_name_data/color_train_retry.csv" 
-    test_csv_path = "csv/label_name_data/test_11_11/about60_data.csv" 
-    train_image_path = "../image-data/color_train_retry" 
-    test_image_path = "../image-data/test_11_11/classify/about60" 
+    train_csv_path = "csv/label_name_data/train_shadow_combine.csv" 
+    test_csv_path = "csv/label_name_data/test_shadow.csv" 
+    train_image_path = "../image-data/train_shadow_combine" 
+    test_image_path = "../image-data/test_shadow" 
     test_img_index = "ALL"
-    train_name = "color_train_retry"
+    train_name = "train_shadow_combine"
     #############################################
 
     ##### for mix param #####
@@ -137,7 +137,7 @@ def main():
     if image_type & BRIGHTNESS:
         detect.for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,
         weight_decay,input_size,train_csv_path,test_csv_path,train_image_path,
-        test_image_path,test_img_index,train_name)
+        test_image_path,test_img_index,train_name,error_th = "100")
         print("lab end")
 
     if image_type & 0:

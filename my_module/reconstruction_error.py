@@ -46,9 +46,9 @@ def reconstruction_error_3d(input_img,output_img,error_th):
     E = sum(save)/float(len(save))
 
     
-    if error_th == "color" and E < 10.0:
+    if error_th == "color" and E < 11.5:
         judge = "normal pipe image"
-    elif error_th == "color" and E >= 10.0:
+    elif error_th == "color" and E >= 11.5:
         judge = "abnormal pipe image"
     
     

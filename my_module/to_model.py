@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import torch
+import cv2
 from my_module.reconstruction_error import reconstruction_error_3d
 from my_module.reconstruction_error import reconstruction_error_2d
 from torch.autograd import Variable
@@ -65,10 +66,12 @@ def to_model_3d(input_img,index_num,input_size,model,error_th,AE_type):
         save_input_img = input_img[i].detach().numpy()
         save_input_img = (save_input_img/2 +0.5)*255
         save_input_img = np.transpose(save_input_img,(1,2,0))
+        save_input_img = cv2.GaussianBlur(save_input_img,(3,3),1.1) 
         
         if AE_type == "CONV":
             result_img = input_img[i]
             result_img.detach().numpy()
+            #result_img = cv2.GaussianBlur(result_img,(3,3),1.1) 
             result_img = np.expand_dims(result_img,0)
             result_img = torch.tensor(result_img)
 

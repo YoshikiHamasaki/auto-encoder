@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
+import cv2
 from torch.autograd import Variable
 from my_module import own_imshow as own_imshow
 from my_module.to_model import to_model_2d

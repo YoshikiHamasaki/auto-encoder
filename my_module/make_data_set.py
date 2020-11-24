@@ -63,8 +63,9 @@ def color_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
         def __getitem__(self, idx):
             # 画像読み込みa
             image_name = self.images[idx]
-            image = Image.open( os.path.join(self.root_dir, image_name))
-            image = image.convert('RGB') # PyTorch 0.4以降
+            image = cv2.imread( os.path.join(self.root_dir, image_name))
+            #image = image.convert('RGB') # PyTorch 0.4以降
+            #image = cv2.GaussianBlur(image,(3,3),1.1) 
             # label (0 or 1)
             label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
             return self.transform(image), int(label)
@@ -102,7 +103,6 @@ def lab_make_data_set(train_csv,test_csv,train_img_path,test_img_path):
             image = cv2.imread( os.path.join(self.root_dir, image_name))
             image = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
             image_lab = image[:,:,0]
-            #image = image.convert('RGB') # PyTorch 0.4以降
             # label (0 or 1)
             label = self.train_df.query('ImageName=="'+image_name+'"')['ImageLabel'].iloc[0]
             return self.transform(image_lab), int(label)
