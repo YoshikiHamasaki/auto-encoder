@@ -53,3 +53,22 @@ def reconstruction_error_3d(input_img,output_img,error_th):
     
     
     return E,judge
+
+
+def reconstruction_error_expert(input_img,output_img):
+    save = []
+    for c in range(input_img.shape[2]):
+        for y in range(input_img.shape[0]):
+            for x in range(input_img.shape[1]):
+                e = math.sqrt((input_img[y][x][c]-output_img[y][x][c])**2)
+            save.append(e)
+
+    E = sum(save)/float(len(save))
+
+    
+    if E <= 10:
+        judge = "normal pipe image"
+    elif E > 10:
+        judge = "abnormal pipe image"
+     
+    return E,judge

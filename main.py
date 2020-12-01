@@ -19,6 +19,8 @@ def main():
     image_type = 0
     MIX = 0
 
+
+    #colorの学習用フォルダ
     train_path_box = FilePath("8_12_train","8_12_train") 
      #影の学習用画像フォルダ名
     train_shadow_path_box = FilePath("train_shadow","train_shadow")
@@ -28,23 +30,24 @@ def main():
 
 
     ############# setting parameter #################
-    image_type |= BRIGHTNESS
-    AE_type = "LAB"
-    num_epochs = 100
+    image_type |= COLOR  # COLOR or BRIGHTNESS
+    AE_type = "COLOR"
+    num_epochs = 101
     optimizer_type = "SGD"
     learning_rate = 0.05
     weight_decay = 1e-5
-    input_size = 28*28
-    train_csv_path = "csv/label_name_data/train_shadow_combine.csv" 
-    test_csv_path = "csv/label_name_data/test_shadow.csv" 
-    train_image_path = "../image-data/train_shadow_combine" 
-    test_image_path = "../image-data/test_shadow" 
+    input_size = 3*28*28
+    train_csv_path = "csv/label_name_data/color_train_retry.csv" 
+    test_csv_path = "csv/label_name_data/test_11_6/about100_data.csv" 
+    train_image_path = "../image-data/color_train_retry" 
+    test_image_path = "../image-data/test_11_6/classify/about100" 
     test_img_index = "ALL"
-    train_name = "train_shadow_combine"
+    train_name = "color_train_retry"
     #############################################
 
+
     ##### for mix param #####
-    MIX |= OFF
+    MIX |= 0
     folder_name1_epoch = 100
     folder_name2_epoch = 100
     folder_name3_epoch = 100
@@ -66,7 +69,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about40" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i])!= 0:
                 train_name = "train_shadow_bright_about40"
-                detect.for_brightness_detect("LAB",folder_name1_epoch,optimizer_type,
+                detect.for_expert_detect("LAB",folder_name1_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("40"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("40"),
@@ -77,7 +80,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about60" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "train_shadow_bright_about60"
-                detect.for_brightness_detect("LAB",folder_name2_epoch,optimizer_type,
+                detect.for_expert_detect("LAB",folder_name2_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("60"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("60"),
@@ -89,7 +92,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about100" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "train_shadow_bright_about100"
-                detect.for_brightness_detect("LAB",folder_name3_epoch,optimizer_type,
+                detect.for_expert_detect("LAB",folder_name3_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("100"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("100"),
@@ -101,7 +104,7 @@ def main():
             if os.path.basename(test_mix_path_box.for_mix_image()[i]) == "about120" and get_dir_size(
                     test_mix_path_box.for_mix_image()[i]) != 0:
                 train_name = "train_shadow_bright_about120"
-                detect.for_brightness_detect("LAB",folder_name4_epoch,optimizer_type,
+                detect.for_expert_detect("LAB",folder_name4_epoch,optimizer_type,
                         learning_rate,weight_decay,input_size,
                 train_shadow_path_box.for_train_shadow_csv("120"),test_mix_path_box.for_mix_csv()[i],
                 train_shadow_path_box.for_train_shadow_image("120"),

@@ -6,6 +6,7 @@ from torch.autograd import Variable
 from my_module import own_imshow as own_imshow
 from my_module.to_model import to_model_2d
 from my_module.to_model import to_model_3d
+from my_module.to_model import to_model_expert
 
 def pred_bin_image(test_loader,test_img_index,model,error_th):
 
@@ -65,7 +66,7 @@ def pred_lab_image(test_loader,test_img_index,model,input_size,error_th,AE_type)
         to_model_2d(input_img,test_img_index,input_size,model,error_th,AE_type)
 
 
-def pred_expert_image(test_loader_color,test_loader_lab,test_img_index,model,input_size,error_th,AE_type): 
+def pred_expert_image(test_loader_color,test_img_index,model,input_size,error_th,AE_type): 
 
     iterator_color = iter(test_loader_color)
     ori_img, _ = next(iterator_color)
@@ -73,6 +74,7 @@ def pred_expert_image(test_loader_color,test_loader_lab,test_img_index,model,inp
     if test_img_index == "ALL":
         input_img = ori_img
         to_model_expert(input_img,len(input_img),input_size,model,error_th,AE_type)
+    
     else:
         input_img = ori_img[test_img_index]
         to_model_expert(input_img,test_img_index,input_size,model,error_th,AE_type)

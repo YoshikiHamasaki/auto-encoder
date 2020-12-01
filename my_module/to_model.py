@@ -2,8 +2,12 @@ import numpy as np
 import pandas as pd
 import torch
 import cv2
+import torchvision
+import torchvision.transforms as transforms
+import cloudpickle
 from my_module.reconstruction_error import reconstruction_error_3d
 from my_module.reconstruction_error import reconstruction_error_2d
+from my_module.reconstruction_error import reconstruction_error_expert
 from torch.autograd import Variable
 
 def to_model_2d(input_img,index_num,input_size,model,error_th,AE_type):
@@ -27,7 +31,6 @@ def to_model_2d(input_img,index_num,input_size,model,error_th,AE_type):
         
         result_img = Variable(result_img)
         #print(result_img.shape)
-        first_model = "model/train_folder=color_train_retry image_type=color AE_type=COLOR optim=SGD lr=0.05 epoch=200.pkl"
         result_img = model(result_img)
         
         
@@ -63,9 +66,9 @@ def to_model_3d(input_img,index_num,input_size,model,error_th,AE_type):
     list_data = []
 
     for i in range(index_num):
-        
         save_input_img = input_img[i].detach().numpy()
         save_input_img = (save_input_img/2 +0.5)*255
+        print(save_input_img.ndim)
         save_input_img = np.transpose(save_input_img,(1,2,0))
         
         if AE_type == "CONV":
@@ -79,12 +82,10 @@ def to_model_3d(input_img,index_num,input_size,model,error_th,AE_type):
             result_img = input_img[i].view(-1,input_size)
         
         result_img = Variable(result_img)
-        #print(result_img.shape)
-        first_model = "model/train_folder=color_train_retry image_type=color AE_type=COLOR optim=SGD lr=0.05 epoch=200.pkl"
         result_img = model(result_img)
         
         
-        result_img = (result_img/2 +0.5)*255
+        result_img = (result_img/2 +0.5)*255 
         result_np_img = result_img.detach().numpy()
         
         if AE_type != "CONV":
@@ -96,7 +97,7 @@ def to_model_3d(input_img,index_num,input_size,model,error_th,AE_type):
         #print(result_np_img_reshape)
         
         r_error,judge = reconstruction_error_3d(save_input_img,result_np_img_reshape,error_th)
-        
+        print(r_error)
         E_list.append(r_error)
         judge_list.append(judge)
         train_model_list.append(error_th)
@@ -117,12 +118,14 @@ def to_model_expert(input_img,index_num,input_size,model,error_th,AE_type):
     train_model_list = []
     index_list = []
     list_data = []
-
+    with open("model/train_folder=color_train_retry image_type=color AE_type=COLOR optim=SGD lr=0.05 epoch=200.pkl","rb") as f:
+        first_model = cloudpickle.load(f)
+    
     for i in range(index_num):
         
-        save_input_img = input_img[i].detach().numpy()
-        save_input_img = (save_input_img/2 +0.5)*255
-        save_input_img = np.transpose(save_input_img,(1,2,0))
+        save_input_img_3c = input_img[i].detach().numpy()
+        save_input_img_3c = (save_input_img_3c/2 +0.5)*255
+        save_input_img_3c = np.transpose(save_input_img_3c,(1,2,0))
         
         if AE_type == "CONV":
             result_img = input_img[i]
@@ -132,27 +135,39 @@ def to_model_expert(input_img,index_num,input_size,model,error_th,AE_type):
             result_img = torch.tensor(result_img)
 
         else:
-            result_img = input_img[i].view(-1,input_size)
+            result_img_3c = input_img[i].view(-1,3*28*28)
         
-        result_img = Variable(result_img)
-        #print(result_img.shape)
-        first_model = "model/train_folder=color_train_retry image_type=color AE_type=COLOR optim=SGD lr=0.05 epoch=200.pkl"
-        result_img = model(result_img)
+        result_img_3c = Variable(result_img_3c)
+        result_img_3c = first_model(result_img_3c)
         
-        
-        result_img = (result_img/2 +0.5)*255
-        result_np_img = result_img.detach().numpy()
+        result_img_3c = (result_img_3c/2 +0.5)*255
+        result_np_img_3c = result_img_3c.detach().numpy()
         
         if AE_type != "CONV":
-            result_np_img = result_np_img.reshape(3,28,28)
+            result_np_img_3c = result_np_img_3c.reshape(3,28,28)
         
         #print(result_np_img.shape)
-        result_np_img_reshape = np.transpose(result_np_img,(1,2,0)) 
+        result_np_img_reshape_3c = np.transpose(result_np_img_3c,(1,2,0)) 
         
-        #print(result_np_img_reshape)
-        
-        r_error,judge = reconstruction_error_3d(save_input_img,result_np_img_reshape,error_th)
-        
+        r_error,judge = reconstruction_error_expert(save_input_img_3c,result_np_img_reshape_3c)
+
+        if 9 <= r_error and r_error <= 11:
+            print("a")
+            save_input_img_1c = cv2.cvtColor(save_input_img_3c,cv2.COLOR_BGR2LAB)
+            save_input_img_1c = save_input_img_1c[:,:,0]
+           
+            result_img_1c = transforms.Compose(
+                    [transforms.ToTensor(),transforms.Normalize((0.5,),(0.5,))])
+
+            result_img_1c = result_img_1c.view(-1,input_size)
+            result_img_1c = Variable(result_img_1c)
+            result_img_1c = model(result_img_1c)
+            result_img_1c = (result_img_1c/2 +0.5)*255
+            result_np_img_1c = result_img_1c.detach().numpy()
+            result_np_img_reshape_1c = np.transpose(result_np_img_1c,(1,2,0)) 
+
+            r_error,judge = reconstruction_error_2d(save_input_img_1c,result_np_img_reshape_1c,error_th)
+
         E_list.append(r_error)
         judge_list.append(judge)
         train_model_list.append(error_th)

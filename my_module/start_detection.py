@@ -68,12 +68,13 @@ def for_brightness_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight
     optimizer = select_optim.select_optimizer_type(optimizer_type,model,learning_rate)
 
     loss_list, model = cal.calculate(num_epochs,train_loader,model,optimizer,
-            f"model/train_folder={train_name} image_type={save_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl",AE_type) 
+            f"model/train_folder={train_name} image_type={save_type} AE_type={AE_type} optim={optimizer_type} lr={learning_rate} epoch={num_epochs}.pkl",AE_type) 
 
     np.save(f"./model/loss_list.npy", np.array(loss_list)) 
     pred.pred_lab_image(test_loader,test_img_index,model,input_size,error_th,AE_type) 
 
-def for_expert_detect(AE_type,num_epochs,optimizer_type,learning_rate,input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name,error_th):
+def for_expert_detect(AE_type,num_epochs,optimizer_type,learning_rate,weight_decay,
+        input_size,train_csv_path,test_csv_path,train_image_path,test_image_path,test_img_index,train_name,error_th):
 
     device =  "cpu" 
     save_type = "lab"
@@ -97,4 +98,4 @@ def for_expert_detect(AE_type,num_epochs,optimizer_type,learning_rate,input_size
 
     np.save(f"./model/loss_list.npy", np.array(loss_list)) 
     
-    pred.pred_expert_image(test_loader_color,test_loader_lab,test_img_index,model,input_size,error_th,AE_type)
+    pred.pred_expert_image(test_loader_color,test_img_index,model,input_size,error_th,AE_type)

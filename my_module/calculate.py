@@ -44,7 +44,6 @@ def calculate(num_epochs,train_loader,model,optimizer,model_pass,AE_type):
      with open(model_pass,"wb") as f:
         cloudpickle.dump(model,f)
 
- with open(model_pass,"rb") as f:
-     model = cloudpickle.load(f)
+
 
  return loss_list, model
