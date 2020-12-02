@@ -66,15 +66,19 @@ def pred_lab_image(test_loader,test_img_index,model,input_size,error_th,AE_type)
         to_model_2d(input_img,test_img_index,input_size,model,error_th,AE_type)
 
 
-def pred_expert_image(test_loader_color,test_img_index,model,input_size,error_th,AE_type): 
+def pred_expert_image(test_loader_color,test_loader_lab,test_img_index,model,input_size,error_th,AE_type): 
 
     iterator_color = iter(test_loader_color)
-    ori_img, _ = next(iterator_color)
+    iterator_lab = iter(test_loader_lab)
+    ori_img_color, _ = next(iterator_color)
+    ori_img_lab, _ = next(iterator_lab)
     
     if test_img_index == "ALL":
-        input_img = ori_img
-        to_model_expert(input_img,len(input_img),input_size,model,error_th,AE_type)
+        input_img_color = ori_img_color
+        input_img_lab = ori_img_lab
+        to_model_expert(input_img_color,input_img_lab,len(input_img_color),input_size,model,error_th,AE_type)
     
     else:
-        input_img = ori_img[test_img_index]
-        to_model_expert(input_img,test_img_index,input_size,model,error_th,AE_type)
+        input_img_color = ori_img_color[test_img_index]
+        input_img_lab = ori_img_lab[test_img_index]
+        to_model_expert(input_img_color,input_img_lab,test_img_index,input_size,model,error_th,AE_type)
