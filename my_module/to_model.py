@@ -149,7 +149,7 @@ def to_model_expert(input_img_color,input_img_lab,index_num,input_size,model,err
         
         r_error,judge = reconstruction_error_expert(save_input_img_3c,result_np_img_reshape_3c)
 
-        if 9 <= r_error and r_error <= 11:
+        if 9 <= r_error and r_error <= 14:
             if error_th == "color":
                 pass
             else:

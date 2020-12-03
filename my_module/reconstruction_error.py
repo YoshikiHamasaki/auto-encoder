@@ -66,9 +66,9 @@ def reconstruction_error_expert(input_img,output_img):
     E = sum(save)/float(len(save))
 
     
-    if E <= 10:
+    if E <= 11:
         judge = "normal pipe image"
-    elif E > 10:
+    elif E > 11:
         judge = "abnormal pipe image"
      
     return E,judge

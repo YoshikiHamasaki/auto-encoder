@@ -25,7 +25,7 @@ def main():
      #影の学習用画像フォルダ名
     train_shadow_path_box = FilePath("train_shadow","train_shadow")
      #テストしたいフォルダ名を入力
-    test_mix_path_box = FilePath("test_11_6","test_11_6")
+    test_mix_path_box = FilePath("test_11_11","test_11_11")
     #train_name = os.path.basename(train_image_path)
 
 
