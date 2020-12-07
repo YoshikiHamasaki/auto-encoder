@@ -123,6 +123,16 @@ def main():
                 test_img_index,train_name,error_th = "color")
                 print("over135 end")
 
+
+         
+        df = pd.read_csv("pred_result/test_11_6_retry_result_expert.csv",usecols=[1])
+        df_bool_normal = (df == "normal pipe image")
+        df_bool_abnormal = (df == "abnormal pipe image")
+        write = pd.DataFrame(data = [df_bool_normal.sum(),df_bool_abnormal.sum()])
+        write = write.T
+        
+        header = ["normal","abnormal"]
+        write.to_csv("pred_result/test_11_6_retry_result_expert.csv",mode = "a" ,index =False,header = header)
         sys.exit()
 
 
