@@ -25,9 +25,9 @@ def reconstruction_error_2d(input_img,output_img,error_th):
     elif error_th == "100" and E >= 19.0:
         judge = "abnormal pipe image"
      
-    if error_th == "120" and E < 19.0:
+    if error_th == "120" and E < 14.0:
         judge = "normal pipe image"
-    elif error_th == "120" and E >= 19.0:
+    elif error_th == "120" and E >= 14.0:
         judge = "abnormal pipe image"
    
 
@@ -66,9 +66,9 @@ def reconstruction_error_expert(input_img,output_img):
     E = sum(save)/float(len(save))
 
     
-    if E <= 11:
+    if E <= 8:
         judge = "normal pipe image"
-    elif E > 11:
+    elif E > 8:
         judge = "abnormal pipe image"
      
     return E,judge
