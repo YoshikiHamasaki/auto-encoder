@@ -25,7 +25,7 @@ def main():
      #影の学習用画像フォルダ名
     train_shadow_path_box = FilePath("train_shadow","train_shadow")
      #テストしたいフォルダ名を入力
-    test_mix_path_box = FilePath("test_11_11","test_11_11")
+    test_mix_path_box = FilePath("test_12_8_4_remove","test_12_8_4_remove")
     #train_name = os.path.basename(train_image_path)
 
 
@@ -125,15 +125,31 @@ def main():
 
 
          
-        df = pd.read_csv("pred_result/test_11_6_retry_result_expert.csv",usecols=[1])
+        write_csvpath = "csv/result.csv" 
+        
+        df = pd.read_csv(write_csvpath,usecols=[1])
         df_bool_normal = (df == "normal pipe image")
         df_bool_abnormal = (df == "abnormal pipe image")
-        write = pd.DataFrame(data = [df_bool_normal.sum(),df_bool_abnormal.sum()])
-        write = write.T
         
-        header = ["normal","abnormal"]
-        write.to_csv("pred_result/test_11_6_retry_result_expert.csv",mode = "a" ,index =False,header = header)
-        sys.exit()
+        a = df_bool_normal.sum().values
+        b = df_bool_abnormal.sum().values
+        total = a+b
+        per = (b/total)*100
+        write = pd.DataFrame(data = [a,b,total,per])
+        write = write.T
+        print(write)
+        
+        header = ["normal","abnormal","total","ab_per"]
+        write.to_csv(write_csvpath,mode = "a" ,index =False,header = header)
+#        df = pd.read_csv("pred_result/test_11_6_retry_result_expert.csv",usecols=[1])
+#        df_bool_normal = (df == "normal pipe image")
+#        df_bool_abnormal = (df == "abnormal pipe image")
+#        write = pd.DataFrame(data = [df_bool_normal.sum(),df_bool_abnormal.sum()])
+#        write = write.T
+#        
+#        header = ["normal","abnormal"]
+#        write.to_csv("pred_result/test_11_6_retry_result_expert.csv",mode = "a" ,index =False,header = header)
+#        sys.exit()
 
 
 

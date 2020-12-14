@@ -5,7 +5,7 @@ import pandas as pd
 #cv2.imshow("img",img)
 #cv2.waitKey()
 
-write_csvpath = "pred_result/test_11_6_retry_result_noif.csv"
+write_csvpath = "pred_result/test_12_8_3_remove_noif.csv"
 
 df = pd.read_csv(write_csvpath,usecols=[1])
 df_bool_normal = (df == "normal pipe image")

@@ -19,7 +19,7 @@ date_min = date_now.minute
 
 
 ####### setting parameter ############
-path = '../image-data/ori_train'
+path = '../image-data/original2'
 image_path = natsorted(glob.glob(path + '/*.jpg'))
 out_path = f"../image-data/trimming/{date_month}_{date_day}_{date_hour}_{date_min}"
 os.mkdir(out_path)
@@ -37,6 +37,8 @@ def get_image_point(path):
     x, y = 0, 0
     mx, my = 0, 0
     x_s = 100 
+    img_next = 0
+    img_back = 0
 
     while (1):
         pygame.display.update()     # 画面を更新
@@ -65,25 +67,44 @@ def get_image_point(path):
                     y_s = y
                     mx_s = mx
                     my_s = my
+
+                if event.key == K_n:
+                    img_next = 1
+                    x_s = x
+                    y_s = y
+                    mx_s = mx
+                    my_s = my
+                    
+                if event.key == K_b:
+                    img_back = 1
+                    x_s = x
+                    y_s = y
+                    mx_s = mx
+                    my_s = my
             
             if event.type == QUIT:  # 閉じるボタンが押されたら終了
                 pygame.quit()       # Pygameの終了(画面閉じられる)
                 sys.exit()
+        
         if x_s == x:
             break
-    return x_s, y_s, mx_s, my_s
+    return x_s, y_s, mx_s, my_s,img_next,img_back
 
 def image_trimming(path, number,out_path):
     img = cv2.imread(path, 1)
     img_h, img_w, img_c = img.shape
     h_ratio = img_h / h
     w_ratio = img_w / w
-    img_x = x * w_ratio
-    img_mx = mx * w_ratio
-    img_y = y * h_ratio
-    img_my = my * h_ratio
+    img_x = int(x * w_ratio)
+    img_mx = int(mx * w_ratio)
+    img_y = int(y * h_ratio)
+    img_my = int(my * h_ratio)
     dx = img_mx - img_x
     dy = img_my - img_y
+    
+    whole_img = img[img_y:img_my,img_x:img_mx]
+    cv2.imwrite(f"{out_path}/whole_img_{i}.jpg",whole_img)
+    
     count = 0
     for l in range(int(dx/28)):
         for m in range(int(dy/28)):
@@ -92,7 +113,7 @@ def image_trimming(path, number,out_path):
     #img2 = img[int(img_y):int(img_my), int(img_x):int(img_mx)]
             cv2.imwrite(f'{out_path}/tri_{number}_{count}.jpg', img2)
 
-for i,f in enumerate(image_path):
+for i in range(len(image_path)):
     im = cv2.imread(image_path[i],1)
     im_h, im_w, im_c = im.shape
     if im_h < im_w:
@@ -101,6 +122,10 @@ for i,f in enumerate(image_path):
         (w, h) = (600, 800)
     else:
         (w, h) = (600, 600)
-    x, y, mx, my = get_image_point(image_path[i])
-    a,b = os.path.splitext(os.path.basename(image_path[i]))
-    image_trimming(image_path[i],a,out_path)
+    x, y, mx, my,n,b = get_image_point(image_path[i])
+    
+    if n == 1:
+        pass
+    else:
+        a,b = os.path.splitext(os.path.basename(image_path[i]))
+        image_trimming(image_path[i],a,out_path)

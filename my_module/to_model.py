@@ -149,33 +149,33 @@ def to_model_expert(input_img_color,input_img_lab,index_num,input_size,model,err
         
         r_error,judge = reconstruction_error_expert(save_input_img_3c,result_np_img_reshape_3c)
 
-#        if 8 <= r_error and r_error <= 13:
-#            if error_th == "color":
-#                result_img_3c = Variable(result_img_3c)
-#                result_img_out_3c = model(result_img_3c)
-#                result_img_out_3c = (result_img_out_3c/2 +0.5)*255
-#                result_np_img_out_3c = result_img_out_3c.detach().numpy()
-#                result_np_img_out_3c = result_np_img_out_3c.reshape(3,28,28)
-#                result_np_img_reshape_3c = np.transpose(result_np_img_out_3c,(1,2,0)) 
-#                r_error,judge = reconstruction_error_3d(save_input_img_3c,result_np_img_reshape_3c,error_th)
-#            else:
-#                save_input_img_1c = input_img_lab[i].detach().numpy()
-#                save_input_img_1c = (save_input_img_1c/2 +0.5)*255
-#                save_input_img_1c = np.transpose(save_input_img_1c,(1,2,0))
-#                
-#                result_img_1c = input_img_lab[i]
-#                result_img_1c = result_img_1c.view(-1,28*28)
-#                result_img_1c = Variable(result_img_1c)
-#                result_img_1c = model(result_img_1c)
-#                result_img_1c = (result_img_1c/2 +0.5)*255
-#                result_np_img_1c = result_img_1c.detach().numpy()
-#                
-#                if AE_type != "CONV":
-#                    result_np_img_1c = result_np_img_1c.reshape(1,28,28)
-#                
-#                result_np_img_reshape_1c = np.transpose(result_np_img_1c,(1,2,0)) 
-#
-#                r_error,judge = reconstruction_error_2d(save_input_img_1c,result_np_img_reshape_1c,error_th)
+        if 8 <= r_error and r_error <= 12:
+            if error_th == "color":
+                result_img_3c = Variable(result_img_3c)
+                result_img_out_3c = model(result_img_3c)
+                result_img_out_3c = (result_img_out_3c/2 +0.5)*255
+                result_np_img_out_3c = result_img_out_3c.detach().numpy()
+                result_np_img_out_3c = result_np_img_out_3c.reshape(3,28,28)
+                result_np_img_reshape_3c = np.transpose(result_np_img_out_3c,(1,2,0)) 
+                r_error,judge = reconstruction_error_3d(save_input_img_3c,result_np_img_reshape_3c,error_th)
+            else:
+                save_input_img_1c = input_img_lab[i].detach().numpy()
+                save_input_img_1c = (save_input_img_1c/2 +0.5)*255
+                save_input_img_1c = np.transpose(save_input_img_1c,(1,2,0))
+                
+                result_img_1c = input_img_lab[i]
+                result_img_1c = result_img_1c.view(-1,28*28)
+                result_img_1c = Variable(result_img_1c)
+                result_img_1c = model(result_img_1c)
+                result_img_1c = (result_img_1c/2 +0.5)*255
+                result_np_img_1c = result_img_1c.detach().numpy()
+                
+                if AE_type != "CONV":
+                    result_np_img_1c = result_np_img_1c.reshape(1,28,28)
+                
+                result_np_img_reshape_1c = np.transpose(result_np_img_1c,(1,2,0)) 
+
+                r_error,judge = reconstruction_error_2d(save_input_img_1c,result_np_img_reshape_1c,error_th)
 
         E_list.append(r_error)
         judge_list.append(judge)
