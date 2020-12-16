@@ -25,7 +25,7 @@ def main():
      #影の学習用画像フォルダ名
     train_shadow_path_box = FilePath("train_shadow","train_shadow")
      #テストしたいフォルダ名を入力
-    test_mix_path_box = FilePath("test_12_15_1_remove","test_12_15_1_remove")
+    test_mix_path_box = FilePath("test_12_8_2","test_12_8_2")
     #train_name = os.path.basename(train_image_path)
 
 
@@ -141,15 +141,8 @@ def main():
         
         header = ["normal","abnormal","total","ab_per"]
         write.to_csv(write_csvpath,mode = "a" ,index =False,header = header)
-#        df = pd.read_csv("pred_result/test_11_6_retry_result_expert.csv",usecols=[1])
-#        df_bool_normal = (df == "normal pipe image")
-#        df_bool_abnormal = (df == "abnormal pipe image")
-#        write = pd.DataFrame(data = [df_bool_normal.sum(),df_bool_abnormal.sum()])
-#        write = write.T
-#        
-#        header = ["normal","abnormal"]
-#        write.to_csv("pred_result/test_11_6_retry_result_expert.csv",mode = "a" ,index =False,header = header)
-#        sys.exit()
+
+        sys.exit()
 
 
 
