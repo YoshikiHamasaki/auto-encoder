@@ -1,0 +1,21 @@
+# Fdb version 3
+["dvipdf"] 1609908609 "test.dvi" "test.pdf" "test" 1609908629
+  "test.dvi" 1609908609 328 73caad712dd69625fada36412555755b "latex"
+  (generated)
+  "test.pdf"
+["latex"] 1609908630 "test.tex" "test.dvi" "test" 1609908631
+  "c:/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1609829146 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1609828071 1288 655e228510b4c2a1abe905c368440826 ""
+  "c:/texlive/2020/texmf-dist/tex/latex/base/fleqn.clo" 1609830183 4772 6c926fe4107286a9188a0d9894293223 ""
+  "c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-dvips.def" 1609830148 32860 63891baa3c1e8b2b5e9009dbcf141ebc ""
+  "c:/texlive/2020/texmf-dist/tex/uplatex/base/ujreport.cls" 1609833506 28822 0d11fc9a80459f8acb59a92a8c0c240f ""
+  "c:/texlive/2020/texmf-dist/tex/uplatex/base/ujsize12.clo" 1609833506 8651 e3f78182e9663a8a3a1c616db92a3146 ""
+  "c:/texlive/2020/texmf-dist/web2c/texmf.cnf" 1609830117 39451 15a3ebee027466ecb89701aa91dfebaf ""
+  "c:/texlive/2020/texmf-var/web2c/euptex/uplatex.fmt" 1609834068 2591840 cdc5a3d76b9869060c8517046a441c4c ""
+  "c:/texlive/2020/texmf.cnf" 1609833900 713 e69b156964470283e0530f5060668171 ""
+  "test.aux" 1609908631 8 a94a2480d3289e625eea47cd1b285758 "latex"
+  "test.tex" 1609908627 73 9b5ec107e2492b761bccdf50ff644d5d ""
+  (generated)
+  "test.dvi"
+  "test.log"
+  "test.aux"
