@@ -7,7 +7,13 @@ import pandas as pd
 from natsort import natsorted
 
 
-img_name_list = natsorted(glob.glob("../image-data/test_12_30_2/classify/**/*.jpg",recursive = True))
+img_name_list = natsorted(glob.glob("../image-data/test_12_15_1_remove/classify/**/*.jpg",recursive = True))
+
+img2 = cv2.imread("../image-data/test_12_8_2/classify/about100/000045.jpg")
+img2 = cv2.cvtColor(img2,cv2.COLOR_RGB2GRAY)
+img2 = cv2.resize(img2,None,fx = 5,fy =5)
+cv2.imshow("a",img2)
+cv2.waitKey(0)
 
 entropy_list = []
 entropy_list2 = []
