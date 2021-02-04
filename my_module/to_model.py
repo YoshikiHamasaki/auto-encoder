@@ -150,6 +150,7 @@ def to_model_expert(input_img_color,input_img_lab,index_num,input_size,model,err
         r_error,judge = reconstruction_error_expert(save_input_img_3c,result_np_img_reshape_3c)
 
         if 8 <= r_error and r_error <= 12:
+            print("a")
             if error_th == "color":
                 result_img_3c = Variable(result_img_3c)
                 result_img_out_3c = model(result_img_3c)
