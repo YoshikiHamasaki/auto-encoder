@@ -30,9 +30,9 @@ def main():
 
 
     ############# setting parameter #################
-    image_type |= 0  # COLOR or BRIGHTNESS
+    image_type |= COLOR  # COLOR or BRIGHTNESS
     AE_type = "COLOR"
-    num_epochs = 150
+    num_epochs = 400
     optimizer_type = "SGD"
     learning_rate = 0.05
     weight_decay = 1e-5
@@ -47,7 +47,7 @@ def main():
 
 
     ##### for mix param #####
-    MIX |= ON
+    MIX |= 0
     folder_name1_epoch = 100
     folder_name2_epoch = 101
     folder_name3_epoch = 100
